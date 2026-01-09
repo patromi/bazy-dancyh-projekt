@@ -1,14 +1,25 @@
-import { Box, TextField } from "@mui/material";
-import { type HttpError } from "@refinedev/core";
-import { Create, SaveButton } from "@refinedev/mui";
+import type {
+  IOpiekunowie,
+  IOrganizacja,
+  IOrganizacjaForm,
+  IWydzialy,
+} from "@/types";
+import {
+  Autocomplete,
+  Box,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
+import { useSelect, type HttpError } from "@refinedev/core";
+import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
-import type { IOrganizacja, IOrganizacjaForm } from "../../../types";
 
 export default function OrganizacjeCreate() {
   const {
-    refineCore: { onFinish, formLoading, query },
+    // refineCore: { onFinish, formLoading, query },
     register,
-    handleSubmit,
+    // handleSubmit,
     saveButtonProps,
   } = useForm<IOrganizacja, HttpError, IOrganizacjaForm>({
     refineCoreProps: {
@@ -17,38 +28,60 @@ export default function OrganizacjeCreate() {
     },
   });
 
+  const { options: opiekunowieOptions } = useSelect<IOpiekunowie>({
+    resource: "opiekunowie",
+    optionLabel: (item) => `${item.imie} ${item.nazwisko}`,
+    optionValue: "id",
+  });
+
+  const { options: wydzialyOptions } = useSelect<IWydzialy>({
+    resource: "wydzialy",
+    optionLabel: "nazwa_wydzialu",
+    optionValue: "id",
+  });
+
   return (
     <Create saveButtonProps={saveButtonProps}>
-      <Box component="form" className="flex flex-col gap-4">
+      <Box component="form" className="flex flex-col gap-8">
         <TextField
-          {...register("nazwa", {
+          {...register("nazwa_organizacji", {
             required: "To pole jest wymagane",
           })}
-          name="nazwa"
+          name="nazwa_organizacji"
           label="Nazwa"
         />
-        <TextField
-          {...register("adres", {
-            required: "To pole jest wymagane",
-          })}
-          name="adres"
-          label="Adres"
+
+        <Autocomplete
+          options={wydzialyOptions}
+          noOptionsText="Brak wydziałów"
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              {...register("wydzial", {
+                required: "To pole jest wymagane",
+              })}
+              label="Wydział"
+            />
+          )}
         />
 
-        <TextField
-          {...register("telefon", {
-            required: "To pole jest wymagane",
-          })}
-          name="telefon"
-          label="Telefon"
+        <Autocomplete
+          options={opiekunowieOptions}
+          noOptionsText="Brak opiekunów"
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              {...register("opiekun", {
+                required: "To pole jest wymagane",
+              })}
+              label="Opiekun"
+            />
+          )}
         />
 
-        <TextField
-          {...register("email", {
-            required: "To pole jest wymagane",
-          })}
-          name="email"
-          label="Email"
+        <FormControlLabel
+          control={<Checkbox {...register("czy_aktywna")} />}
+          label="Czy aktywna?"
         />
       </Box>
     </Create>

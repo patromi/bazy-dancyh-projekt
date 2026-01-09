@@ -1,7 +1,9 @@
+import { List } from "@refinedev/mui";
+
 export default function OrganizacjeList() {
   return (
-    <div>
-      <h1>Organizacje</h1>
-    </div>
+    <List title="Lista organizacji" resource="organizacje">
+      {/* Tutaj możesz dostosować kolumny i inne ustawienia listy */}
+    </List>
   );
 }

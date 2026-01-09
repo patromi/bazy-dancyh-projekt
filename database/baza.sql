@@ -67,19 +67,19 @@ CREATE TABLE IF NOT EXISTS Projekty (
 );
 
 CREATE TABLE IF NOT EXISTS Wydarzenia (
-                id serial PRIMARY KEY,
-                nazwa_wydarzenia VARCHAR(100),
-                data_rozpoczecia DATE NOT NULL,
-                data_zakonczenia DATE NOT NULL,
-                opis_wydarzenia TEXT,
-                id_organizacji INTEGER NOT NULL,
-                  id_pokoju integer not null,
-                FOREIGN KEY (id_pokoju) REFERENCES Pokoje(id),
+  id serial PRIMARY KEY,
+  nazwa_wydarzenia VARCHAR(100),
+  data_rozpoczecia DATE NOT NULL,
+  data_zakonczenia DATE NOT NULL,
+  opis_wydarzenia TEXT,
+  id_organizacji INTEGER NOT NULL,
+  id_pokoju integer not null,
+  FOREIGN KEY (id_pokoju) REFERENCES Pokoje(id),
 
-                CONSTRAINT chk_data_zakonczenia CHECK (data_zakonczenia >= data_rozpoczecia),
-                FOREIGN KEY (id_organizacji) REFERENCES Organizacje(id),
-                UNIQUE(nazwa_wydarzenia, data_rozpoczecia, data_zakonczenia, id_organizacji)
-              );
+  CONSTRAINT chk_data_zakonczenia CHECK (data_zakonczenia >= data_rozpoczecia),
+  FOREIGN KEY (id_organizacji) REFERENCES Organizacje(id),
+  UNIQUE(nazwa_wydarzenia, data_rozpoczecia, data_zakonczenia, id_organizacji)
+);
 
 CREATE TABLE IF NOT EXISTS Sekcje (
   id serial PRIMARY KEY,
@@ -125,10 +125,10 @@ CREATE TABLE IF NOT EXISTS Czlonkowie_w_organizacjach (
 
 CREATE OR REPLACE FUNCTION pobierz_role_czlonka(wybrany_id_czlonka INT)
 RETURNS TABLE (
-    imie VARCHAR,
-    nazwisko VARCHAR,
-    nazwa_sekcji VARCHAR,
-    nazwa_roli VARCHAR
+  imie VARCHAR,
+  nazwisko VARCHAR,
+  nazwa_sekcji VARCHAR,
+  nazwa_roli VARCHAR
 )
 LANGUAGE plpgsql
 AS $$
