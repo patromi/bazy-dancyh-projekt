@@ -7,14 +7,18 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "refine": "refine"
   },
   "dependencies": {
+    "@refinedev/cli": "^2.16.50",
     "@refinedev/mui": "^7.0.1",
     "@refinedev/react-hook-form": "^5.0.3",
     "@refinedev/react-router": "^2.0.3",
     "@refinedev/simple-rest": "^6.0.1",
+    "axios": "^1.6.2",
     "motion": "^12.24.10",
+    "query-string": "^7.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.12.0",

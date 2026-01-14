@@ -1,14 +1,24 @@
 import { Refine } from "@refinedev/core";
 import routerProvider from "@refinedev/react-router";
-import dataProvider from "@refinedev/simple-rest";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
+import { dataProvider } from "@/rest-data-provider";
 import "./index.css";
 
-import Index from "./pages/index/index.tsx";
-import { OrganizacjeList, OrganizacjeCreate } from "./pages/organizacje";
+import Budynki from "@/models/budynki";
+import Pokoje from "@/models/pokoje";
+import Uczelnie from "@/models/uczelnie";
+import Czlonkowie from "@/models/czlonkowie";
+import Projekty from "@/models/projekty";
+import Wydarzenia from "@/models/wydarzenia";
+import Opiekunowie from "@/models/opiekunowie";
+import Role from "@/models/role";
+import Wydzialy from "@/models/wydzialy";
+import Organizacje from "@/models/organizacje";
+import Sekcje from "@/models/sekcje";
+import Index from "./pages/index";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,23 +27,117 @@ createRoot(document.getElementById("root")!).render(
         dataProvider={dataProvider("http://localhost:8000/api")}
         routerProvider={routerProvider}
         resources={[
-          {
-            name: "organizacje",
-            list: "/organizacje",
-            create: "/organizacje/create",
-          },
+          Organizacje.resourceOrganizacje,
+          Sekcje.resourceSekcje,
+          Opiekunowie.resourceOpiekunowie,
+          Wydzialy.resourceWydzialy,
+          Uczelnie.resourceUczelnie,
+          Budynki.resourceBudynki,
+          Pokoje.resourcePokoje,
+          Czlonkowie.resourceCzlonkowie,
+          Projekty.resourceProjekty,
+          Wydarzenia.resourceWydarzenia,
+          Role.resourceRole,
         ]}
       >
         <Routes>
           <Route path="/">
             <Route index element={<Index />} />
+
             <Route path="organizacje">
-              <Route index element={<OrganizacjeList />} />
-              <Route path="create" element={<OrganizacjeCreate />} />
+              <Route index element={<Organizacje.OrganizacjeList />} />
+              <Route
+                path="create"
+                element={<Organizacje.OrganizacjeCreate />}
+              />
+              <Route path=":id" element={<Organizacje.OrganizacjeShow />} />
+              <Route
+                path=":id/edit"
+                element={<Organizacje.OrganizacjeUpdate />}
+              />
             </Route>
 
-            {/* <Route path="wydarzenia" element={<WydarzeniaPage />} /> */}
-            {/* <Route path="projekty" element={<ProjektyPage />} /> */}
+            <Route path="opiekunowie">
+              <Route index element={<Opiekunowie.OpiekunowieList />} />
+              <Route
+                path="create"
+                element={<Opiekunowie.OpiekunowieCreate />}
+              />
+              <Route path=":id" element={<Opiekunowie.OpiekunowieShow />} />
+              <Route
+                path=":id/edit"
+                element={<Opiekunowie.OpiekunowieUpdate />}
+              />
+            </Route>
+
+            <Route path="wydzialy">
+              <Route index element={<Wydzialy.WydzialyList />} />
+              <Route path="create" element={<Wydzialy.WydzialyCreate />} />
+              <Route path=":id" element={<Wydzialy.WydzialyShow />} />
+              <Route path=":id/edit" element={<Wydzialy.WydzialyUpdate />} />
+            </Route>
+
+            <Route path="uczelnie">
+              <Route index element={<Uczelnie.UczelnieList />} />
+              <Route path="create" element={<Uczelnie.UczelnieCreate />} />
+              <Route path=":id" element={<Uczelnie.UczelnieShow />} />
+              <Route path=":id/edit" element={<Uczelnie.UczelnieUpdate />} />
+            </Route>
+
+            <Route path="budynki">
+              <Route index element={<Budynki.BudynkiList />} />
+              <Route path="create" element={<Budynki.BudynkiCreate />} />
+              <Route path=":id" element={<Budynki.BudynkiShow />} />
+              <Route path=":id/edit" element={<Budynki.BudynkiUpdate />} />
+            </Route>
+
+            <Route path="pokoje">
+              <Route index element={<Pokoje.PokojeList />} />
+              <Route path="create" element={<Pokoje.PokojeCreate />} />
+              <Route path=":id" element={<Pokoje.PokojeShow />} />
+              <Route path=":id/edit" element={<Pokoje.PokojeUpdate />} />
+            </Route>
+
+            <Route path="czlonkowie">
+              <Route index element={<Czlonkowie.CzlonkowieList />} />
+              <Route path="create" element={<Czlonkowie.CzlonkowieCreate />} />
+              <Route path=":id" element={<Czlonkowie.CzlonkowieShow />} />
+              <Route
+                path=":id/edit"
+                element={<Czlonkowie.CzlonkowieUpdate />}
+              />
+            </Route>
+
+            <Route path="projekty">
+              <Route index element={<Projekty.ProjektyList />} />
+              <Route path="create" element={<Projekty.ProjektyCreate />} />
+              <Route path=":id" element={<Projekty.ProjektyShow />} />
+              <Route path=":id/edit" element={<Projekty.ProjektyUpdate />} />
+            </Route>
+
+            <Route path="wydarzenia">
+              <Route index element={<Wydarzenia.WydarzeniaList />} />
+              <Route path="create" element={<Wydarzenia.WydarzeniaCreate />} />
+              <Route path=":id" element={<Wydarzenia.WydarzeniaShow />} />
+              <Route
+                path=":id/edit"
+                element={<Wydarzenia.WydarzeniaUpdate />}
+              />
+            </Route>
+
+            <Route path="role">
+              <Route index element={<Role.RoleList />} />
+              <Route path="create" element={<Role.RoleCreate />} />
+              <Route path=":id" element={<Role.RoleShow />} />
+              <Route path=":id/edit" element={<Role.RoleUpdate />} />
+            </Route>
+
+            <Route path="sekcje">
+              <Route index element={<Sekcje.SekcjeList />} />
+              <Route path="create" element={<Sekcje.SekcjeCreate />} />
+              <Route path=":id" element={<Sekcje.SekcjeShow />} />
+              <Route path=":id/edit" element={<Sekcje.SekcjeUpdate />} />
+            </Route>
           </Route>
         </Routes>
       </Refine>
