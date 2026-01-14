@@ -9,7 +9,7 @@ export const resourceUczelnie: ResourceProps = {
   list: "/uczelnie",
   create: "/uczelnie/create",
   show: "/uczelnie/:id",
-  edit: "/uczelnie/:id",
+  edit: "/uczelnie/:id/edit",
 };
 
 export default {

@@ -1,15 +1,23 @@
 import {
-  useDataGrid,
-  List,
-  EditButton,
-  ShowButton,
   DeleteButton,
+  EditButton,
+  List,
+  ShowButton,
+  useDataGrid,
 } from "@refinedev/mui";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+
+import { Drawer } from "@mui/material";
+
 import type { IUczelnie } from "@/types";
+import { stringFilterOperators } from "@/utils/filters";
+import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import React from "react";
+import UczelnieUpdate from "./UczelnieUpdate";
 
 export default function UczelnieList() {
-  const { dataGridProps } = useDataGrid();
+  const [editId, setEditId] = React.useState<number | null>(null);
+
+  const { dataGridProps } = useDataGrid<IUczelnie>();
 
   const columns: GridColDef<IUczelnie>[] = [
     {
@@ -17,33 +25,49 @@ export default function UczelnieList() {
       headerName: "Nazwa",
       flex: 1,
       minWidth: 200,
+      filterOperators: stringFilterOperators,
     },
     {
       field: "adres_uczelni",
       headerName: "Adres",
       flex: 1,
       minWidth: 200,
+      filterOperators: stringFilterOperators,
     },
     {
       field: "actions",
       headerName: "Akcje",
       type: "actions",
       width: 150,
-      renderCell: function render({ row }) {
-        return (
-          <>
-            <ShowButton hideText recordItemId={row.id} />
-            <EditButton hideText recordItemId={row.id} />
-            <DeleteButton hideText recordItemId={row.id} />
-          </>
-        );
-      },
+      renderCell: ({ row }) => (
+        <>
+          <ShowButton hideText recordItemId={row.id} />
+          <EditButton hideText onClick={() => setEditId(row.id)} />
+          <DeleteButton hideText recordItemId={row.id} />
+        </>
+      ),
     },
   ];
 
   return (
-    <List>
-      <DataGrid {...dataGridProps} columns={columns} />
-    </List>
+    <>
+      <List resource="uczelnie" title="Uczelnie">
+        <DataGrid {...dataGridProps} columns={columns} />
+      </List>
+
+      <Drawer
+        classes={{ paper: "min-w-[500px]" }}
+        ModalProps={{}}
+        anchor="right"
+        open={editId !== null}
+        onClose={() => setEditId(null)}
+      >
+        <UczelnieUpdate
+          id={editId ?? undefined}
+          onSuccess={() => setEditId(null)}
+          onClose={() => setEditId(null)}
+        />
+      </Drawer>
+    </>
   );
 }

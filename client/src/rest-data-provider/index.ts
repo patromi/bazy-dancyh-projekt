@@ -25,14 +25,13 @@ export const dataProvider = (
     const { headers: headersFromMeta, method } = meta ?? {};
     const requestMethod = (method as MethodTypes) ?? "get";
 
+    console.log(filters);
     const queryFilters = generateFilter(filters);
 
     const query: {
       ordering?: string;
       _start?: number;
       _end?: number;
-      _sort?: string;
-      _order?: string;
     } = {};
 
     if (mode === "server") {
