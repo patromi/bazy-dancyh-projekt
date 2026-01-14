@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "api",
     'drf_spectacular',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -149,4 +150,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
