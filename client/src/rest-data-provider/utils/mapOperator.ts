@@ -23,7 +23,6 @@ export const mapOperator = (operator: CrudOperators): string => {
     // TODO
     case "between":
     case "nbetween":
-    case "in":
     case "nin":
     case "ina":
     case "nina":

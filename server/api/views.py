@@ -18,15 +18,16 @@ from .filters import (
 class UczelnieListCreateView(generics.ListCreateAPIView):
     queryset = Uczelnie.objects.all()
     serializer_class = UczelnieSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = UczelnieFilter
     ordering_fields = '__all__'
     ordering = ['nazwa']
+    search_fields = ['nazwa', 'adres_uczelni']
 
 class UczelnieDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Uczelnie.objects.all()
     serializer_class = UczelnieSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = UczelnieFilter
     ordering_fields = '__all__'
     ordering = ['nazwa']
@@ -34,15 +35,16 @@ class UczelnieDetailView(generics.RetrieveUpdateDestroyAPIView):
 class BudynkiListCreateView(generics.ListCreateAPIView):
     queryset = Budynki.objects.all()
     serializer_class = BudynkiSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = BudynkiFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_budynku']
+    search_fields = ['nazwa_budynku', 'adres_budynku', 'uczelnia__nazwa']
 
 class BudynkiDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Budynki.objects.all()
     serializer_class = BudynkiSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = BudynkiFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_budynku']
@@ -50,15 +52,16 @@ class BudynkiDetailView(generics.RetrieveUpdateDestroyAPIView):
 class PokojeListCreateView(generics.ListCreateAPIView):
     queryset = Pokoje.objects.all()
     serializer_class = PokojeSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = PokojeFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_pokoju']
+    search_fields = ['nazwa_pokoju', 'budynek__nazwa_budynku']
 
 class PokojeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pokoje.objects.all()
     serializer_class = PokojeSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = PokojeFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_pokoju']
@@ -66,15 +69,16 @@ class PokojeDetailView(generics.RetrieveUpdateDestroyAPIView):
 class WydzialyListCreateView(generics.ListCreateAPIView):
     queryset = Wydzialy.objects.all()
     serializer_class = WydzialySerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = WydzialyFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_wydzialu']
+    search_fields = ['nazwa_wydzialu', 'adres_wydzialu', 'uczelnia__nazwa']
 
 class WydzialyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Wydzialy.objects.all()
     serializer_class = WydzialySerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = WydzialyFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_wydzialu']
@@ -82,15 +86,16 @@ class WydzialyDetailView(generics.RetrieveUpdateDestroyAPIView):
 class OpiekunowieListCreateView(generics.ListCreateAPIView):
     queryset = Opiekunowie.objects.all()
     serializer_class = OpiekunowieSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = OpiekunowieFilter
     ordering_fields = '__all__'
     ordering = ['nazwisko']
+    search_fields = ['imie', 'nazwisko', 'email', 'numer_kontaktowy']
 
 class OpiekunowieDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Opiekunowie.objects.all()
     serializer_class = OpiekunowieSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = OpiekunowieFilter
     ordering_fields = '__all__'
     ordering = ['nazwisko']
@@ -98,15 +103,16 @@ class OpiekunowieDetailView(generics.RetrieveUpdateDestroyAPIView):
 class OrganizacjeListCreateView(generics.ListCreateAPIView):
     queryset = Organizacje.objects.all()
     serializer_class = OrganizacjeSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = OrganizacjeFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_organizacji']
+    search_fields = ['nazwa_organizacji', 'wydzial__nazwa_wydzialu']
 
 class OrganizacjeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Organizacje.objects.all()
     serializer_class = OrganizacjeSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = OrganizacjeFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_organizacji']
@@ -114,15 +120,16 @@ class OrganizacjeDetailView(generics.RetrieveUpdateDestroyAPIView):
 class ProjektyListCreateView(generics.ListCreateAPIView):
     queryset = Projekty.objects.all()
     serializer_class = ProjektySerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = ProjektyFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_projektu']
+    search_fields = ['nazwa_projektu', 'opis_projektu', 'organizacja__nazwa_organizacji']
 
 class ProjektyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Projekty.objects.all()
     serializer_class = ProjektySerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = ProjektyFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_projektu']
@@ -130,15 +137,16 @@ class ProjektyDetailView(generics.RetrieveUpdateDestroyAPIView):
 class WydarzeniaListCreateView(generics.ListCreateAPIView):
     queryset = Wydarzenia.objects.all()
     serializer_class = WydarzeniaSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = WydarzeniaFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_wydarzenia']
+    search_fields = ['nazwa_wydarzenia', 'opis_wydarzenia', 'organizacja__nazwa_organizacji']
 
 class WydarzeniaDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Wydarzenia.objects.all()
     serializer_class = WydarzeniaSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = WydarzeniaFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_wydarzenia']
@@ -146,15 +154,16 @@ class WydarzeniaDetailView(generics.RetrieveUpdateDestroyAPIView):
 class SekcjeListCreateView(generics.ListCreateAPIView):
     queryset = Sekcje.objects.all()
     serializer_class = SekcjeSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = SekcjeFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_sekcji']
+    search_fields = ['nazwa_sekcji', 'opis_sekcji', 'organizacja__nazwa_organizacji']
 
 class SekcjeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Sekcje.objects.all()
     serializer_class = SekcjeSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = SekcjeFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_sekcji']
@@ -162,15 +171,16 @@ class SekcjeDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CzlonkowieListCreateView(generics.ListCreateAPIView):
     queryset = Czlonkowie.objects.all()
     serializer_class = CzlonkowieSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = CzlonkowieFilter
     ordering_fields = '__all__'
     ordering = ['nazwisko']
+    search_fields = ['imie', 'nazwisko', 'email', 'numer_kontaktowy']
 
 class CzlonkowieDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Czlonkowie.objects.all()
     serializer_class = CzlonkowieSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = CzlonkowieFilter
     ordering_fields = '__all__'
     ordering = ['nazwisko']
@@ -178,15 +188,16 @@ class CzlonkowieDetailView(generics.RetrieveUpdateDestroyAPIView):
 class RoleListCreateView(generics.ListCreateAPIView):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = RoleFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_roli']
+    search_fields = ['nazwa_roli', 'sekcja__nazwa_sekcji', 'czlonek__imie', 'czlonek__nazwisko']
 
 class RoleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = RoleFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_roli']

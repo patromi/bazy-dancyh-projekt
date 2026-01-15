@@ -1,24 +1,11 @@
-import {
-  DeleteButton,
-  EditButton,
-  List,
-  ShowButton,
-  useDataGrid,
-} from "@refinedev/mui";
-
-import { Drawer } from "@mui/material";
-
+import { stringFilterOperators } from "@/rest-data-provider/filters";
 import type { IUczelnie } from "@/types";
-import { stringFilterOperators } from "@/utils/filters";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import React from "react";
+import { type GridColDef } from "@mui/x-data-grid";
 import UczelnieUpdate from "./UczelnieUpdate";
 
+import ListPage from "@/components/ListPage";
+
 export default function UczelnieList() {
-  const [editId, setEditId] = React.useState<number | null>(null);
-
-  const { dataGridProps } = useDataGrid<IUczelnie>();
-
   const columns: GridColDef<IUczelnie>[] = [
     {
       field: "nazwa",
@@ -34,40 +21,13 @@ export default function UczelnieList() {
       minWidth: 200,
       filterOperators: stringFilterOperators,
     },
-    {
-      field: "actions",
-      headerName: "Akcje",
-      type: "actions",
-      width: 150,
-      renderCell: ({ row }) => (
-        <>
-          <ShowButton hideText recordItemId={row.id} />
-          <EditButton hideText onClick={() => setEditId(row.id)} />
-          <DeleteButton hideText recordItemId={row.id} />
-        </>
-      ),
-    },
   ];
 
   return (
-    <>
-      <List resource="uczelnie" title="Uczelnie">
-        <DataGrid {...dataGridProps} columns={columns} />
-      </List>
-
-      <Drawer
-        classes={{ paper: "min-w-[500px]" }}
-        ModalProps={{}}
-        anchor="right"
-        open={editId !== null}
-        onClose={() => setEditId(null)}
-      >
-        <UczelnieUpdate
-          id={editId ?? undefined}
-          onSuccess={() => setEditId(null)}
-          onClose={() => setEditId(null)}
-        />
-      </Drawer>
-    </>
+    <ListPage<IUczelnie>
+      resource="uczelnie"
+      columns={columns}
+      updateComponent={UczelnieUpdate}
+    />
   );
 }
