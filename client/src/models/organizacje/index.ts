@@ -13,9 +13,11 @@ const resourceOrganizacje: ResourceProps = {
 };
 
 export default {
-  OrganizacjeCreate,
-  OrganizacjeList,
-  OrganizacjeShow,
-  OrganizacjeUpdate,
-  resourceOrganizacje,
+  components: {
+    create: OrganizacjeCreate,
+    list: OrganizacjeList,
+    show: OrganizacjeShow,
+    update: OrganizacjeUpdate,
+  },
+  resource: resourceOrganizacje,
 };

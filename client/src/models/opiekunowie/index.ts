@@ -13,9 +13,12 @@ const resourceOpiekunowie: ResourceProps = {
 };
 
 export default {
-  OpiekunowieCreate,
-  OpiekunowieList,
-  OpiekunowieShow,
-  OpiekunowieUpdate,
-  resourceOpiekunowie,
+  components: {
+    create: OpiekunowieCreate,
+    list: OpiekunowieList,
+    show: OpiekunowieShow,
+    update: OpiekunowieUpdate,
+  },
+
+  resource: resourceOpiekunowie,
 };

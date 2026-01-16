@@ -13,9 +13,11 @@ export const resourceUczelnie: ResourceProps = {
 };
 
 export default {
-  UczelnieCreate,
-  UczelnieList,
-  UczelnieShow,
-  UczelnieUpdate,
-  resourceUczelnie,
+  components: {
+    create: UczelnieCreate,
+    list: UczelnieList,
+    show: UczelnieShow,
+    update: UczelnieUpdate,
+  },
+  resource: resourceUczelnie,
 };

@@ -1,40 +1,32 @@
-import type { IUczelnie, IUczelnieForm } from "@/types";
-import { Box, TextField } from "@mui/material";
-import { type HttpError } from "@refinedev/core";
-import { Create } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
+import CreateComponent from "@/components/CrudComponents/CreateComponent";
+import { TextField } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function UczelnieCreate() {
-  const { register, saveButtonProps } = useForm<
-    IUczelnie,
-    HttpError,
-    IUczelnieForm
-  >({
-    refineCoreProps: {
-      resource: "uczelnie",
-      action: "create",
-    },
-  });
+  const { t } = useTranslation("translation");
 
   return (
-    <Create saveButtonProps={saveButtonProps}>
-      <Box component="form" className="flex flex-col gap-8">
-        <TextField
-          {...register("nazwa", {
-            required: "To pole jest wymagane",
-          })}
-          name="nazwa"
-          label="Nazwa"
-        />
+    <CreateComponent
+      resource="uczelnie"
+      renderChildren={(form) => (
+        <>
+          <TextField
+            {...form.register("nazwa", {
+              required: "To pole jest wymagane",
+            })}
+            name="nazwa"
+            label={t("uczelnie.fields.nazwa")}
+          />
 
-        <TextField
-          {...register("adres_uczelni", {
-            required: "To pole jest wymagane",
-          })}
-          name="adres_uczelni"
-          label="Adres uczelni"
-        />
-      </Box>
-    </Create>
+          <TextField
+            {...form.register("adres_uczelni", {
+              required: "To pole jest wymagane",
+            })}
+            name="adres_uczelni"
+            label={t("uczelnie.fields.adres_uczelni")}
+          />
+        </>
+      )}
+    />
   );
 }

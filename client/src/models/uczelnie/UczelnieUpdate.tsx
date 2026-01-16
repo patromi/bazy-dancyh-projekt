@@ -1,49 +1,21 @@
-import CloseButton from "@/components/CloseButton";
+import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
 import type { IUczelnie, IUczelnieForm } from "@/types";
 import { Box, TextField } from "@mui/material";
-import { useParsed, type HttpError } from "@refinedev/core";
-import { Edit } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
-import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
-export default function UczelnieUpdate(props: {
-  id?: number;
-  onSuccess?: () => void;
-  onClose?: () => void;
-}) {
-  const { id: urlId } = useParsed<{ id: number }>();
-  const lastId = useRef<number>(props.id ?? (urlId as number) ?? 0);
-
-  const {
-    register,
-    saveButtonProps,
-    formState: { isDirty, isLoading },
-  } = useForm<IUczelnie, HttpError, IUczelnieForm>({
-    refineCoreProps: {
-      onMutationSuccess: props.onSuccess,
-      resource: "uczelnie",
-      action: "edit",
-      id: lastId.current,
-    },
-  });
+export default function UczelnieUpdate() {
+  const { t } = useTranslation("translation");
 
   return (
-    <Box sx={{ height: "100svh" }}>
-      <Edit
-        goBack={props.id ? <CloseButton onClick={props.onClose} /> : undefined}
-        saveButtonProps={{
-          ...saveButtonProps,
-          disabled: !isDirty || isLoading,
-        }}
-        isLoading={isLoading}
-        resource="uczelnie"
-      >
+    <UpdateComponent<IUczelnie, IUczelnieForm>
+      resource="uczelnie"
+      renderChildren={({ register, formState: { isLoading } }) => (
         <Box component="form" className="flex flex-col gap-8">
           <TextField
             {...register("nazwa", {
               required: "To pole jest wymagane",
             })}
-            label="Nazwa"
+            label={t("uczelnie.fields.nazwa")}
             disabled={isLoading}
             slotProps={{ inputLabel: { shrink: true } }}
           />
@@ -52,12 +24,12 @@ export default function UczelnieUpdate(props: {
             {...register("adres_uczelni", {
               required: "To pole jest wymagane",
             })}
-            label="Adres uczelni"
+            label={t("uczelnie.fields.adres_uczelni")}
             disabled={isLoading}
             slotProps={{ inputLabel: { shrink: true } }}
           />
         </Box>
-      </Edit>
-    </Box>
+      )}
+    />
   );
 }

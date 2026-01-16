@@ -13,9 +13,11 @@ const resourceCzlonkowie: ResourceProps = {
 };
 
 export default {
-  CzlonkowieCreate,
-  CzlonkowieList,
-  CzlonkowieShow,
-  CzlonkowieUpdate,
-  resourceCzlonkowie,
+  components: {
+    create: CzlonkowieCreate,
+    list: CzlonkowieList,
+    show: CzlonkowieShow,
+    update: CzlonkowieUpdate,
+  },
+  resource: resourceCzlonkowie,
 };

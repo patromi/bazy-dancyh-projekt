@@ -6,7 +6,7 @@ import React from "react";
 
 export default function DataGridCustomToolbar(props: {
   resource: string;
-  onEditChange?: (editInline: boolean) => void;
+  onEditInlineChange?: (editInline: boolean) => void;
   onSearch?: (value: string) => void;
 }) {
   const [searchValue, setSearchValue] = React.useState<string>("");
@@ -34,7 +34,7 @@ export default function DataGridCustomToolbar(props: {
 
         <DataGridCustomDeleteModal resource={props.resource} />
 
-        <DataGridInlineEdit onEditChange={props.onEditChange} />
+        <DataGridInlineEdit onEditChange={props.onEditInlineChange} />
       </Stack>
     </GridToolbarContainer>
   );

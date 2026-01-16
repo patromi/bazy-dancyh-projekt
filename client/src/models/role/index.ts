@@ -12,4 +12,12 @@ const resourceRole: ResourceProps = {
   edit: "/role/:id",
 };
 
-export default { RoleCreate, RoleList, RoleShow, RoleUpdate, resourceRole };
+export default {
+  components: {
+    create: RoleCreate,
+    list: RoleList,
+    show: RoleShow,
+    update: RoleUpdate,
+  },
+  resource: resourceRole,
+};

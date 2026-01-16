@@ -13,9 +13,11 @@ const resourceWydarzenia: ResourceProps = {
 };
 
 export default {
-  WydarzeniaCreate,
-  WydarzeniaList,
-  WydarzeniaShow,
-  WydarzeniaUpdate,
-  resourceWydarzenia,
+  components: {
+    create: WydarzeniaCreate,
+    list: WydarzeniaList,
+    show: WydarzeniaShow,
+    update: WydarzeniaUpdate,
+  },
+  resource: resourceWydarzenia,
 };

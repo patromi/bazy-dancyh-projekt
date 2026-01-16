@@ -13,9 +13,11 @@ const resourceProjekty: ResourceProps = {
 };
 
 export default {
-  ProjektyCreate,
-  ProjektyList,
-  ProjektyShow,
-  ProjektyUpdate,
-  resourceProjekty,
+  components: {
+    create: ProjektyCreate,
+    list: ProjektyList,
+    show: ProjektyShow,
+    update: ProjektyUpdate,
+  },
+  resource: resourceProjekty,
 };

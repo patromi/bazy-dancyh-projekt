@@ -13,9 +13,11 @@ const resourcePokoje: ResourceProps = {
 };
 
 export default {
-  PokojeCreate,
-  PokojeList,
-  PokojeShow,
-  PokojeUpdate,
-  resourcePokoje,
+  components: {
+    create: PokojeCreate,
+    list: PokojeList,
+    show: PokojeShow,
+    update: PokojeUpdate,
+  },
+  resource: resourcePokoje,
 };

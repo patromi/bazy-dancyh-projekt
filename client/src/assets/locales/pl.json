@@ -73,10 +73,10 @@
     }
   },
   "actions": {
-    "list": "List",
-    "create": "Create",
-    "edit": "Edit",
-    "show": "Show"
+    "list": "Pokaż listę",
+    "create": "Dodaj",
+    "edit": "Edytuj",
+    "show": "Pokaż"
   },
   "buttons": {
     "create": "Dodaj",
@@ -115,45 +115,8 @@
   "dashboard": {
     "title": "Dashboard"
   },
-  "uczelnie": {
-    "uczelnie": "Uczelnie",
-    "fields": {
-      "id": "Id",
-      "nazwa": "Nazwa",
-      "miasto": "Miasto",
-      "rokZałożenia": "Rok Założenia"
-    },
-    "titles": {
-      "create": "Dodaj uczelnię",
-      "edit": "Edytuj uczelnię",
-      "list": "Lista uczelni",
-      "show": "Szczegóły uczelni"
-    }
-  },
-  "posts": {
-    "posts": "Posty",
-    "fields": {
-      "id": "Id",
-      "title": "Tytuł",
-      "category": "Kategoria",
-      "status": {
-        "title": "Status",
-        "published": "Published",
-        "draft": "Draft",
-        "rejected": "Rejected"
-      },
-      "content": "Content",
-      "createdAt": "Created At"
-    },
-    "titles": {
-      "create": "Create Post",
-      "edit": "Edit Post",
-      "list": "Posts",
-      "show": "Show Post"
-    }
-  },
   "table": {
-    "actions": "Actions"
+    "actions": "Akcje"
   },
   "documentTitle": {
     "default": "refine",
@@ -179,5 +142,185 @@
     "columns": "Kolumny",
     "density": "Gęstość",
     "export": "Eksportuj"
+  },
+  "navbar": {
+    "navigation": "Nawigacja"
+  },
+  "budynki": {
+    "budynki": "Budynki",
+    "fields": {
+      "id": "Id",
+      "nazwa_budynku": "Nazwa budynku",
+      "adres_budynku": "Adres budynku",
+      "uczelnia": "Uczelnia"
+    },
+    "titles": {
+      "create": "Dodaj budynek",
+      "edit": "Edytuj budynek",
+      "list": "Lista budynków",
+      "show": "Szczegóły budynku"
+    }
+  },
+  "czlonkowie": {
+    "czlonkowie": "Członkowie",
+    "fields": {
+      "id": "Id",
+      "pesel": "PESEL",
+      "imie": "Imię",
+      "drugie_imie": "Drugie imię",
+      "nazwisko": "Nazwisko",
+      "email": "Email",
+      "numer_kontaktowy": "Numer kontaktowy"
+    },
+    "titles": {
+      "create": "Dodaj członka",
+      "edit": "Edytuj członka",
+      "list": "Lista członków",
+      "show": "Szczegóły członka"
+    }
+  },
+  "Opiekunowie": {
+    "opiekunowie": "Opiekunowie",
+    "fields": {
+      "id": "Id",
+      "imie": "Imię",
+      "nazwisko": "Nazwisko",
+      "email": "Email",
+      "numer_kontaktowy": "Numer kontaktowy"
+    },
+    "titles": {
+      "create": "Dodaj opiekuna",
+      "edit": "Edytuj opiekuna",
+      "list": "Lista opiekunów",
+      "show": "Szczegóły opiekuna"
+    }
+  },
+  "Organizacje": {
+    "organizacje": "Organizacje",
+    "fields": {
+      "id": "Id",
+      "nazwa_organizacji": "Nazwa organizacji",
+      "data_zalozenia": "Data założenia",
+      "czy_aktywna": "Czy aktywna?",
+      "opiekun": "Opiekun",
+      "wydzial": "Wydział"
+    },
+    "titles": {
+      "create": "Dodaj organizację",
+      "edit": "Edytuj organizację",
+      "list": "Lista organizacji",
+      "show": "Szczegóły organizacji"
+    }
+  },
+  "role": {
+    "role": "Role",
+    "fields": {
+      "id": "Id",
+      "nazwa_roli": "Nazwa roli",
+      "liczba_pkt_do_stypendium": "Liczba pkt do stypendium",
+      "sekcja": "Sekcja",
+      "czlonek": "Członek"
+    },
+    "titles": {
+      "create": "Dodaj rolę",
+      "edit": "Edytuj rolę",
+      "list": "Lista ról",
+      "show": "Szczegóły roli"
+    }
+  },
+  "sekcja": {
+    "sekcja": "Sekcje",
+    "fields": {
+      "id": "Id",
+      "nazwa_sekcji": "Nazwa sekcji",
+      "data_zalozenia": "Data założenia",
+      "opis_sekcji": "Opis sekcji",
+      "organizacja": "Organizacja"
+    },
+    "titles": {
+      "create": "Dodaj sekcję",
+      "edit": "Edytuj sekcję",
+      "list": "Lista sekcji",
+      "show": "Szczegóły sekcji"
+    }
+  },
+  "wydzialy": {
+    "wydzialy": "Wydziały",
+    "fields": {
+      "id": "Id",
+      "nazwa_wydzialu": "Nazwa wydziału",
+      "adres_wydzialu": "Adres wydziału",
+      "uczelnia": "Uczelnia"
+    },
+    "titles": {
+      "create": "Dodaj wydział",
+      "edit": "Edytuj wydział",
+      "list": "Lista wydziałów",
+      "show": "Szczegóły wydziału"
+    }
+  },
+  "wydarzenia": {
+    "wydarzenia": "Wydarzenia",
+    "fields": {
+      "id": "Id",
+      "nazwa_wydarzenia": "Nazwa wydarzenia",
+      "data_rozpoczecia": "Data rozpoczęcia",
+      "data_zakonczenia": "Data zakończenia",
+      "opis_wydarzenia": "Opis wydarzenia",
+      "organizacja": "Organizacja",
+      "pokoj": "Pokój"
+    },
+    "titles": {
+      "create": "Dodaj wydarzenie",
+      "edit": "Edytuj wydarzenie",
+      "list": "Lista wydarzeń",
+      "show": "Szczegóły wydarzenia"
+    }
+  },
+  "uczelnie": {
+    "uczelnie": "Uczelnie",
+    "fields": {
+      "id": "Id",
+      "nazwa": "Nazwa",
+      "adres_uczelni": "Adres uczelni"
+    },
+    "titles": {
+      "create": "Dodaj uczelnię",
+      "edit": "Edytuj uczelnię",
+      "list": "Lista uczelni",
+      "show": "Szczegóły uczelni"
+    }
+  },
+  "projekty": {
+    "projekty": "Projekty",
+    "fields": {
+      "id": "Id",
+      "nazwa_projektu": "Nazwa projektu",
+      "liczba_pkt_do_stypendium": "Liczba pkt do stypendium",
+      "opis_projektu": "Opis projektu",
+      "organizacja": "Organizacja"
+    },
+    "titles": {
+      "create": "Dodaj projekt",
+      "edit": "Edytuj projekt",
+      "list": "Lista projektów",
+      "show": "Szczegóły projektu"
+    }
+  },
+
+  "pokoje": {
+    "pokoje": "Pokoje",
+    "fields": {
+      "id": "Id",
+      "numer_pokoju": "Numer pokoju",
+      "rodzaj_pokoju": "Rodzaj pokoju",
+      "budynki_id": "Budynek"
+    },
+    "titles": {
+      "create": "Dodaj pokój",
+      "edit": "Edytuj pokój",
+      "list": "Lista pokoi",
+      "show": "Szczegóły pokoju"
+    }
   }
 }

@@ -13,9 +13,11 @@ const resourceWydzialy: ResourceProps = {
 };
 
 export default {
-  WydzialyCreate,
-  WydzialyList,
-  WydzialyShow,
-  WydzialyUpdate,
-  resourceWydzialy,
+  components: {
+    create: WydzialyCreate,
+    list: WydzialyList,
+    show: WydzialyShow,
+    update: WydzialyUpdate,
+  },
+  resource: resourceWydzialy,
 };

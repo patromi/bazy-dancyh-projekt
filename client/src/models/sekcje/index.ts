@@ -13,9 +13,11 @@ const resourceSekcje: ResourceProps = {
 };
 
 export default {
-  SekcjeCreate,
-  SekcjeList,
-  SekcjeShow,
-  SekcjeUpdate,
-  resourceSekcje,
+  components: {
+    create: SekcjeCreate,
+    list: SekcjeList,
+    show: SekcjeShow,
+    update: SekcjeUpdate,
+  },
+  resource: resourceSekcje,
 };

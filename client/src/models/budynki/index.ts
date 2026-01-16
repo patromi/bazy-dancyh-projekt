@@ -13,9 +13,11 @@ const resourceBudynki: ResourceProps = {
 };
 
 export default {
-  BudynkiCreate,
-  BudynkiList,
-  BudynkiShow,
-  BudynkiUpdate,
-  resourceBudynki,
+  components: {
+    create: BudynkiCreate,
+    list: BudynkiList,
+    show: BudynkiShow,
+    update: BudynkiUpdate,
+  },
+  resource: resourceBudynki,
 };
