@@ -44,9 +44,7 @@ export default function SekcjeCreate() {
         />
 
         <TextField
-          {...register("opis_sekcji", {
-            required: "To pole jest wymagane",
-          })}
+          {...register("opis_sekcji")}
           name="opis_sekcji"
           label="Opis sekcji"
           multiline

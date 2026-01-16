@@ -3,6 +3,7 @@ import {
   getGridStringOperators,
   getGridNumericOperators,
   type GridFilterOperator,
+  getGridBooleanOperators,
 } from "@mui/x-data-grid";
 
 // Refine operators (używane przez useDataGrid)
@@ -35,7 +36,19 @@ export const stringFilterOperators: GridFilterOperator[] =
     ),
   );
 
-export const numericFilterOperators: GridFilterOperator[] =
+export const numberFilterOperators: GridFilterOperator[] =
+  getGridNumericOperators().filter((operator) =>
+    ["=", "!=", ">", ">=", "<", "<=", "isEmpty", "isNotEmpty"].includes(
+      operator.value,
+    ),
+  );
+
+export const booleanFilterOperators: GridFilterOperator[] =
+  getGridBooleanOperators().filter((operator) =>
+    ["is", "isNot"].includes(operator.value),
+  );
+
+export const dateFilterOperators: GridFilterOperator[] =
   getGridNumericOperators().filter((operator) =>
     ["=", "!=", ">", ">=", "<", "<=", "isEmpty", "isNotEmpty"].includes(
       operator.value,

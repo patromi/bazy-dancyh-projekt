@@ -1,71 +1,57 @@
-import type { ICzlonkowie, ICzlonkowieForm } from "@/types";
-import { Box, TextField } from "@mui/material";
-import { type HttpError } from "@refinedev/core";
-import { Create } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
+import CreateComponent from "@/components/CrudComponents/CreateComponent";
+import { TextField } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function CzlonkowieCreate() {
-  const { register, saveButtonProps } = useForm<
-    ICzlonkowie,
-    HttpError,
-    ICzlonkowieForm
-  >({
-    refineCoreProps: {
-      resource: "czlonkowie",
-      action: "create",
-    },
-  });
+  const { t } = useTranslation("translation");
 
   return (
-    <Create saveButtonProps={saveButtonProps}>
-      <Box component="form" className="flex flex-col gap-8">
-        <TextField
-          {...register("pesel", {
-            required: "To pole jest wymagane",
-          })}
-          name="pesel"
-          label="PESEL"
-        />
+    <CreateComponent
+      resource="czlonkowie"
+      renderChildren={(form) => (
+        <>
+          <TextField
+            {...form.register("pesel", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("czlonkowie.fields.pesel")}
+          />
 
-        <TextField
-          {...register("imie", {
-            required: "To pole jest wymagane",
-          })}
-          name="imie"
-          label="Imię"
-        />
+          <TextField
+            {...form.register("imie", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("czlonkowie.fields.imie")}
+          />
 
-        <TextField
-          {...register("drugie_imie")}
-          name="drugie_imie"
-          label="Drugie imię"
-        />
+          <TextField
+            {...form.register("drugie_imie")}
+            label={t("czlonkowie.fields.drugie_imie")}
+          />
 
-        <TextField
-          {...register("nazwisko", {
-            required: "To pole jest wymagane",
-          })}
-          name="nazwisko"
-          label="Nazwisko"
-        />
+          <TextField
+            {...form.register("nazwisko", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("czlonkowie.fields.nazwisko")}
+          />
 
-        <TextField
-          {...register("email", {
-            required: "To pole jest wymagane",
-          })}
-          name="email"
-          label="Email"
-          type="email"
-        />
+          <TextField
+            {...form.register("email", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("czlonkowie.fields.email")}
+            type="email"
+          />
 
-        <TextField
-          {...register("numer_kontaktowy", {
-            required: "To pole jest wymagane",
-          })}
-          name="numer_kontaktowy"
-          label="Numer kontaktowy"
-        />
-      </Box>
-    </Create>
+          <TextField
+            {...form.register("numer_kontaktowy", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("czlonkowie.fields.numer_kontaktowy")}
+          />
+        </>
+      )}
+    />
   );
 }

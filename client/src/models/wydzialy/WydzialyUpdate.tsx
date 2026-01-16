@@ -1,21 +1,12 @@
+import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
 import type { IWydzialy, IWydzialyForm, IUczelnie } from "@/types";
 import { Autocomplete, Box, TextField } from "@mui/material";
-import { useSelect, type HttpError } from "@refinedev/core";
-import { Edit } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
+import { useSelect } from "@refinedev/core";
+import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export default function WydzialyUpdate() {
-  const { register, saveButtonProps } = useForm<
-    IWydzialy,
-    HttpError,
-    IWydzialyForm
-  >({
-    refineCoreProps: {
-      resource: "wydzialy",
-      action: "edit",
-    },
-  });
-
+  const { t } = useTranslation("translation");
   const { options: uczelnieOptions } = useSelect<IUczelnie>({
     resource: "uczelnie",
     optionLabel: "nazwa",
@@ -23,38 +14,60 @@ export default function WydzialyUpdate() {
   });
 
   return (
-    <Edit saveButtonProps={saveButtonProps}>
-      <Box component="form" className="flex flex-col gap-8">
-        <TextField
-          {...register("nazwa_wydzialu", {
-            required: "To pole jest wymagane",
-          })}
-          name="nazwa_wydzialu"
-          label="Nazwa wydziału"
-        />
+    <UpdateComponent<IWydzialy, IWydzialyForm>
+      resource="wydzialy"
+      renderChildren={({ register, control, formState: { isLoading } }) => (
+        <Box component="form" className="flex flex-col gap-8">
+          <TextField
+            {...register("nazwa_wydzialu", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("wydzialy.fields.nazwa_wydzialu")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <TextField
-          {...register("adres_wydzialu", {
-            required: "To pole jest wymagane",
-          })}
-          name="adres_wydzialu"
-          label="Adres wydziału"
-        />
+          <TextField
+            {...register("adres_wydzialu", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("wydzialy.fields.adres_wydzialu")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <Autocomplete
-          options={uczelnieOptions}
-          noOptionsText="Brak uczelni"
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              {...register("uczelnia", {
-                required: "To pole jest wymagane",
-              })}
-              label="Uczelnia"
-            />
-          )}
-        />
-      </Box>
-    </Edit>
+          <Controller
+            control={control}
+            name="uczelnia"
+            rules={{ required: "To pole jest wymagane" }}
+            render={({ field }) => (
+              <Autocomplete
+                {...field}
+                options={uczelnieOptions}
+                onChange={(_, value) => {
+                  field.onChange(value?.value);
+                }}
+                isOptionEqualToValue={(option, value) =>
+                  option.value === value?.value || option.value === value
+                }
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t("wydzialy.fields.uczelnia")}
+                    error={!!field.ref?.current?.error}
+                    disabled={isLoading}
+                    slotProps={{ inputLabel: { shrink: true } }}
+                  />
+                )}
+                value={
+                  uczelnieOptions.find((o) => o.value === field.value) || null
+                }
+              />
+            )}
+          />
+        </Box>
+      )}
+    />
   );
 }

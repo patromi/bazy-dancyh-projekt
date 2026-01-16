@@ -179,7 +179,7 @@
       "show": "Szczegóły członka"
     }
   },
-  "Opiekunowie": {
+  "opiekunowie": {
     "opiekunowie": "Opiekunowie",
     "fields": {
       "id": "Id",
@@ -195,7 +195,7 @@
       "show": "Szczegóły opiekuna"
     }
   },
-  "Organizacje": {
+  "organizacje": {
     "organizacje": "Organizacje",
     "fields": {
       "id": "Id",
@@ -312,8 +312,8 @@
     "pokoje": "Pokoje",
     "fields": {
       "id": "Id",
-      "numer_pokoju": "Numer pokoju",
-      "rodzaj_pokoju": "Rodzaj pokoju",
+      "nazwa_pokoju": "Numer pokoju",
+      "pojemnosc": "Pojemność",
       "budynki_id": "Budynek"
     },
     "titles": {

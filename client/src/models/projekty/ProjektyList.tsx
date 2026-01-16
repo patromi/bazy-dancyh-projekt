@@ -1,9 +1,42 @@
-import { List } from "@refinedev/mui";
+import {
+  stringFilterOperators,
+  numberFilterOperators,
+} from "@/rest-data-provider/filters";
+import type { IProjekty } from "@/types";
+import { type GridColDef } from "@mui/x-data-grid";
+import ProjektyUpdate from "./ProjektyUpdate";
+import ListComponent from "@/components/CrudComponents/ListComponent";
+import ProjektyCreate from "./ProjektyCreate";
+import ProjektyShow from "./ProjektyShow";
+import { useTranslation } from "react-i18next";
 
 export default function ProjektyList() {
+  const { t } = useTranslation("translation");
+
+  const columns: GridColDef<IProjekty>[] = [
+    {
+      field: "nazwa_projektu",
+      headerName: t("projekty.fields.nazwa_projektu"),
+      flex: 1,
+      minWidth: 200,
+      filterOperators: stringFilterOperators,
+    },
+    {
+      field: "liczba_pkt_do_stypendium",
+      headerName: t("projekty.fields.liczba_pkt_do_stypendium"),
+      flex: 1,
+      minWidth: 100,
+      filterOperators: numberFilterOperators,
+    },
+  ];
+
   return (
-    <List title="Lista projektów" resource="projekty">
-      {/* Tutaj możesz dostosować kolumny i inne ustawienia listy */}
-    </List>
+    <ListComponent<IProjekty>
+      resource="projekty"
+      columns={columns}
+      UpdateComponent={ProjektyUpdate}
+      CreateComponent={ProjektyCreate}
+      ShowComponent={ProjektyShow}
+    />
   );
 }

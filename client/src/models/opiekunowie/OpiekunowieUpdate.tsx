@@ -1,71 +1,70 @@
+import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
 import type { IOpiekunowie, IOpiekunowieForm } from "@/types";
 import { Box, TextField } from "@mui/material";
-import { type HttpError } from "@refinedev/core";
-import { Edit } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export default function OpiekunowieUpdate() {
-  const { register, saveButtonProps } = useForm<
-    IOpiekunowie,
-    HttpError,
-    IOpiekunowieForm
-  >({
-    refineCoreProps: {
-      resource: "opiekunowie",
-      action: "edit",
-    },
-  });
+  const { t } = useTranslation("translation");
 
   return (
-    <Edit saveButtonProps={saveButtonProps}>
-      <Box component="form" className="flex flex-col gap-8">
-        <TextField
-          {...register("pesel", {
-            required: "To pole jest wymagane",
-          })}
-          name="pesel"
-          label="PESEL"
-        />
+    <UpdateComponent<IOpiekunowie, IOpiekunowieForm>
+      resource="opiekunowie"
+      renderChildren={({ register, formState: { isLoading } }) => (
+        <Box component="form" className="flex flex-col gap-8">
+          <TextField
+            {...register("pesel", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("opiekunowie.fields.pesel")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <TextField
-          {...register("imie", {
-            required: "To pole jest wymagane",
-          })}
-          name="imie"
-          label="Imię"
-        />
+          <TextField
+            {...register("imie", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("opiekunowie.fields.imie")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <TextField
-          {...register("drugie_imie")}
-          name="drugie_imie"
-          label="Drugie imię"
-        />
+          <TextField
+            {...register("drugie_imie")}
+            label={t("opiekunowie.fields.drugie_imie")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <TextField
-          {...register("nazwisko", {
-            required: "To pole jest wymagane",
-          })}
-          name="nazwisko"
-          label="Nazwisko"
-        />
+          <TextField
+            {...register("nazwisko", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("opiekunowie.fields.nazwisko")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <TextField
-          {...register("email", {
-            required: "To pole jest wymagane",
-          })}
-          name="email"
-          label="Email"
-          type="email"
-        />
+          <TextField
+            {...register("email", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("opiekunowie.fields.email")}
+            type="email"
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
-        <TextField
-          {...register("numer_kontaktowy", {
-            required: "To pole jest wymagane",
-          })}
-          name="numer_kontaktowy"
-          label="Numer kontaktowy"
-        />
-      </Box>
-    </Edit>
+          <TextField
+            {...register("numer_kontaktowy", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("opiekunowie.fields.numer_kontaktowy")}
+            disabled={isLoading}
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
+        </Box>
+      )}
+    />
   );
 }
