@@ -10,6 +10,9 @@ const resourceRole: ResourceProps = {
   create: "/role/create",
   show: "/role/:id",
   edit: "/role/:id",
+  meta: {
+    parent: "sekcje",
+  },
 };
 
 export default {

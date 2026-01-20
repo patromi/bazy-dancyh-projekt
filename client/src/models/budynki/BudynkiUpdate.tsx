@@ -55,7 +55,7 @@ export default function BudynkiUpdate() {
                   <TextField
                     {...params}
                     label={t("budynki.fields.uczelnia")}
-                    error={!!field.ref?.current?.error}
+                    // error={!!field.ref?.current?.error}
                     disabled={isLoading}
                     slotProps={{ inputLabel: { shrink: true } }}
                   />

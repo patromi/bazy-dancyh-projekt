@@ -6,8 +6,19 @@ import ListComponent from "@/components/CrudComponents/ListComponent";
 import BudynkiCreate from "./BudynkiCreate";
 import BudynkiShow from "./BudynkiShow";
 import { useTranslation } from "react-i18next";
+import type { CrudFilters } from "@refinedev/core";
 
-export default function BudynkiList() {
+import { type SxProps, type Theme } from "@mui/material";
+
+export default function BudynkiList({
+  initialFilters,
+  sx,
+  breadcrumb,
+}: {
+  initialFilters?: CrudFilters;
+  sx?: SxProps<Theme>;
+  breadcrumb?: React.ReactNode;
+}) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<IBundynki>[] = [
@@ -39,6 +50,9 @@ export default function BudynkiList() {
       UpdateComponent={BudynkiUpdate}
       CreateComponent={BudynkiCreate}
       ShowComponent={BudynkiShow}
+      initialFilters={initialFilters}
+      sx={sx}
+      breadcrumb={breadcrumb}
     />
   );
 }

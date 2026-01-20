@@ -10,6 +10,9 @@ const resourcePokoje: ResourceProps = {
   create: "/pokoje/create",
   show: "/pokoje/:id",
   edit: "/pokoje/:id",
+  meta: {
+    parent: "budynki",
+  },
 };
 
 export default {

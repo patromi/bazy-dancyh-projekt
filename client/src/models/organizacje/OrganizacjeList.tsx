@@ -10,8 +10,19 @@ import ListComponent from "@/components/CrudComponents/ListComponent";
 import OrganizacjeCreate from "./OrganizacjeCreate";
 import OrganizacjeShow from "./OrganizacjeShow";
 import { useTranslation } from "react-i18next";
+import type { CrudFilters } from "@refinedev/core";
 
-export default function OrganizacjeList() {
+import { type SxProps, type Theme } from "@mui/material";
+
+export default function OrganizacjeList({
+  initialFilters,
+  sx,
+  breadcrumb,
+}: {
+  initialFilters?: CrudFilters;
+  sx?: SxProps<Theme>;
+  breadcrumb?: React.ReactNode;
+}) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<IOrganizacja>[] = [
@@ -29,7 +40,7 @@ export default function OrganizacjeList() {
       minWidth: 150,
       filterOperators: dateFilterOperators,
     },
-   {
+    {
       field: "czy_aktywna",
       headerName: t("organizacje.fields.czy_aktywna"),
       flex: 1,
@@ -46,6 +57,9 @@ export default function OrganizacjeList() {
       UpdateComponent={OrganizacjeUpdate}
       CreateComponent={OrganizacjeCreate}
       ShowComponent={OrganizacjeShow}
+      initialFilters={initialFilters}
+      sx={sx}
+      breadcrumb={breadcrumb}
     />
   );
 }

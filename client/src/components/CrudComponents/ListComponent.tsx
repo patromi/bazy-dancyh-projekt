@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 
-import { Box, Drawer, Stack } from "@mui/material";
+import { Box, Drawer, Stack, type SxProps, type Theme } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { plPL } from "@mui/x-data-grid/locales";
-import type { BaseKey, BaseRecord } from "@refinedev/core";
+import type { BaseKey, BaseRecord, CrudFilters } from "@refinedev/core";
 import { List, useDataGrid } from "@refinedev/mui";
 
 import DataGridCustomCell from "@/components/DataGrid/DataGridCustomCell";
@@ -14,6 +14,9 @@ import type { InDrawerProps } from ".";
 type TListComponentProps<R extends BaseRecord> = {
   resource: string;
   columns: GridColDef<R>[];
+  initialFilters?: CrudFilters;
+  sx?: SxProps<Theme>;
+  breadcrumb?: React.ReactNode;
 
   ShowComponent?: React.FC<InDrawerProps>;
   UpdateComponent?: React.FC<InDrawerProps>;
@@ -41,15 +44,22 @@ export default function ListComponent<R extends BaseRecord>(
         width: 150,
         sortable: false,
         renderCell: ({ row }) => (
-          <DataGridCustomCell row={row} setEditId={handleOpen} />
+          <DataGridCustomCell
+            row={row}
+            setEditId={handleOpen}
+            resource={props.resource}
+          />
         ),
       },
     ],
-    [props.columns, editInline],
+    [props.columns, editInline, props.resource],
   );
 
   const { dataGridProps, setFilters } = useDataGrid<R>({
     resource: props.resource,
+    filters: {
+      permanent: props.initialFilters,
+    },
   });
 
   const onSearch = useCallback(
@@ -59,8 +69,13 @@ export default function ListComponent<R extends BaseRecord>(
   );
 
   return (
-    <Stack sx={{ height: "100svh", p: 2 }} gap={2} direction="column">
+    <Stack
+      sx={{ height: "100svh", p: 2, ...props.sx }}
+      gap={2}
+      direction="column"
+    >
       <List
+        breadcrumb={props.breadcrumb}
         resource={props.resource}
         wrapperProps={{
           sx: {

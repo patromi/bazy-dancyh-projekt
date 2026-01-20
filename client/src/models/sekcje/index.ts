@@ -10,6 +10,9 @@ const resourceSekcje: ResourceProps = {
   create: "/sekcje/create",
   show: "/sekcje/:id",
   edit: "/sekcje/:id",
+  meta: {
+    parent: "organizacje",
+  },
 };
 
 export default {

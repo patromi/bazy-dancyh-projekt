@@ -9,8 +9,19 @@ import ListComponent from "@/components/CrudComponents/ListComponent";
 import ProjektyCreate from "./ProjektyCreate";
 import ProjektyShow from "./ProjektyShow";
 import { useTranslation } from "react-i18next";
+import type { CrudFilters } from "@refinedev/core";
 
-export default function ProjektyList() {
+import { type SxProps, type Theme } from "@mui/material";
+
+export default function ProjektyList({
+  initialFilters,
+  sx,
+  breadcrumb,
+}: {
+  initialFilters?: CrudFilters;
+  sx?: SxProps<Theme>;
+  breadcrumb?: React.ReactNode;
+}) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<IProjekty>[] = [
@@ -37,6 +48,9 @@ export default function ProjektyList() {
       UpdateComponent={ProjektyUpdate}
       CreateComponent={ProjektyCreate}
       ShowComponent={ProjektyShow}
+      initialFilters={initialFilters}
+      sx={sx}
+      breadcrumb={breadcrumb}
     />
   );
 }

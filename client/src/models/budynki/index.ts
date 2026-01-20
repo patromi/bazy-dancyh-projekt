@@ -10,6 +10,9 @@ const resourceBudynki: ResourceProps = {
   create: "/budynki/create",
   show: "/budynki/:id",
   edit: "/budynki/:id",
+  meta: {
+    parent: "uczelnie",
+  },
 };
 
 export default {

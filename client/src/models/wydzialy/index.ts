@@ -10,6 +10,9 @@ const resourceWydzialy: ResourceProps = {
   create: "/wydzialy/create",
   show: "/wydzialy/:id",
   edit: "/wydzialy/:id",
+  meta: {
+    parent: "uczelnie",
+  },
 };
 
 export default {

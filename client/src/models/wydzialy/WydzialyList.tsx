@@ -6,8 +6,19 @@ import ListComponent from "@/components/CrudComponents/ListComponent";
 import WydzialyCreate from "./WydzialyCreate";
 import WydzialyShow from "./WydzialyShow";
 import { useTranslation } from "react-i18next";
+import type { CrudFilters } from "@refinedev/core";
 
-export default function WydzialyList() {
+import { type SxProps, type Theme } from "@mui/material";
+
+export default function WydzialyList({
+  initialFilters,
+  sx,
+  breadcrumb,
+}: {
+  initialFilters?: CrudFilters;
+  sx?: SxProps<Theme>;
+  breadcrumb?: React.ReactNode;
+}) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<IWydzialy>[] = [
@@ -34,6 +45,9 @@ export default function WydzialyList() {
       UpdateComponent={WydzialyUpdate}
       CreateComponent={WydzialyCreate}
       ShowComponent={WydzialyShow}
+      initialFilters={initialFilters}
+      sx={sx}
+      breadcrumb={breadcrumb}
     />
   );
 }
