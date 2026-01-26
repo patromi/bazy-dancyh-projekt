@@ -1,20 +1,23 @@
 import ShowComponent from "@/components/CrudComponents/ShowComponent";
-import type { IWydzialy, IUczelnie } from "@/types";
+import type { IWydzialy } from "@/types";
 import { Typography } from "@mui/material";
+import { useOne, useParsed, type BaseKey } from "@refinedev/core";
 import { TextFieldComponent as TextField } from "@refinedev/mui";
-import { useOne } from "@refinedev/core";
-import WydzialyUpdate from "./WydzialyUpdate";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import OrganizacjeList from "../organizacje/OrganizacjeList";
+import WydzialyUpdate from "./WydzialyUpdate";
 
-const WydzialyDetails = ({ result }: { result: IWydzialy | undefined }) => {
+const WydzialyDetails = (props: { id: BaseKey | undefined }) => {
   const { t } = useTranslation("translation");
-  const { data: uczelniaData } = useOne<IUczelnie>({
-    resource: "uczelnie",
-    id: result?.uczelnia || "",
-    queryOptions: {
-      enabled: !!result?.uczelnia,
-    },
+
+  const { id: urlId } = useParsed();
+  const id = useMemo(() => props.id ?? urlId, []);
+
+  const { result } = useOne<IWydzialy>({
+    resource: "wydzialy",
+    id: id,
+    queryOptions: { enabled: !!id },
   });
 
   return (
@@ -22,24 +25,24 @@ const WydzialyDetails = ({ result }: { result: IWydzialy | undefined }) => {
       <Typography variant="body1" fontWeight="bold">
         {t("wydzialy.fields.nazwa_wydzialu")}
       </Typography>
-      <TextField value={result?.nazwa_wydzialu ?? ""} />
+      <TextField value={result ? result.nazwa_wydzialu : ""} />
 
       <Typography variant="body1" fontWeight="bold">
         {t("wydzialy.fields.adres_wydzialu")}
       </Typography>
-      <TextField value={result?.adres_wydzialu ?? ""} />
+      <TextField value={result ? result.adres_wydzialu : ""} />
 
       <Typography variant="body1" fontWeight="bold">
         {t("wydzialy.fields.uczelnia")}
       </Typography>
-      <TextField value={uczelniaData?.data?.nazwa ?? result?.uczelnia ?? ""} />
+      <TextField value={result ? result.uczelnia : ""} />
 
-      {result?.id && (
+      {result && (
         <>
           <div style={{ height: "500px", marginTop: "32px" }}>
             <OrganizacjeList
-              initialFilters={[
-                { field: "wydzial", operator: "eq", value: result.id },
+              filters={[
+                { field: "wydzial", operator: "ina", value: result.id },
               ]}
               sx={{ height: "100%", p: 0 }}
               breadcrumb={false}
@@ -56,7 +59,7 @@ export default function WydzialyShow() {
     <ShowComponent<IWydzialy>
       resource="wydzialy"
       UpdateComponent={WydzialyUpdate}
-      renderChildren={(result) => <WydzialyDetails result={result} />}
+      renderChildren={(result) => <WydzialyDetails id={result?.id} />}
     />
   );
 }

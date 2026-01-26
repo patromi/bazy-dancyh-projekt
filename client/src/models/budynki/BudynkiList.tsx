@@ -50,7 +50,7 @@ export default function BudynkiList({
       UpdateComponent={BudynkiUpdate}
       CreateComponent={BudynkiCreate}
       ShowComponent={BudynkiShow}
-      initialFilters={initialFilters}
+      filters={initialFilters}
       sx={sx}
       breadcrumb={breadcrumb}
     />

@@ -20,11 +20,14 @@ export const mapOperator = (operator: CrudOperators): string => {
     case "endswith":
       return `__i${operator}`;
 
+    // Wytrych
+    case "ina":
+      return "";
+
     // TODO
     case "between":
     case "nbetween":
     case "nin":
-    case "ina":
     case "nina":
     case "ne":
     case "ncontains":

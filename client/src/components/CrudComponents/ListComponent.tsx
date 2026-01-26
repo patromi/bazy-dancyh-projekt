@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 
-import { Box, Drawer, Stack, type SxProps, type Theme } from "@mui/material";
+import { Drawer, Stack, type SxProps, type Theme } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { plPL } from "@mui/x-data-grid/locales";
 import type { BaseKey, BaseRecord, CrudFilters } from "@refinedev/core";
@@ -14,7 +14,7 @@ import type { InDrawerProps } from ".";
 type TListComponentProps<R extends BaseRecord> = {
   resource: string;
   columns: GridColDef<R>[];
-  initialFilters?: CrudFilters;
+  filters?: CrudFilters;
   sx?: SxProps<Theme>;
   breadcrumb?: React.ReactNode;
 
@@ -57,9 +57,7 @@ export default function ListComponent<R extends BaseRecord>(
 
   const { dataGridProps, setFilters } = useDataGrid<R>({
     resource: props.resource,
-    filters: {
-      permanent: props.initialFilters,
-    },
+    filters: { permanent: props.filters },
   });
 
   const onSearch = useCallback(

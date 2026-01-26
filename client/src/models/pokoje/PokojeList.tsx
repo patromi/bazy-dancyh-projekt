@@ -48,7 +48,7 @@ export default function PokojeList({
       UpdateComponent={PokojeUpdate}
       CreateComponent={PokojeCreate}
       ShowComponent={PokojeShow}
-      initialFilters={initialFilters}
+      filters={initialFilters}
       sx={sx}
       breadcrumb={breadcrumb}
     />

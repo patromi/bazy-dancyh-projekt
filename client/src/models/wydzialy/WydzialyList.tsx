@@ -45,7 +45,7 @@ export default function WydzialyList({
       UpdateComponent={WydzialyUpdate}
       CreateComponent={WydzialyCreate}
       ShowComponent={WydzialyShow}
-      initialFilters={initialFilters}
+      filters={initialFilters}
       sx={sx}
       breadcrumb={breadcrumb}
     />

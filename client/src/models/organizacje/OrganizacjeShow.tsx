@@ -6,6 +6,7 @@ import { useOne } from "@refinedev/core";
 import OrganizacjeUpdate from "./OrganizacjeUpdate";
 import { useTranslation } from "react-i18next";
 import ProjektyList from "../projekty/ProjektyList";
+import SekcjeList from "../sekcje/SekcjeList";
 
 const OrganizacjeDetails = ({
   result,
@@ -13,7 +14,7 @@ const OrganizacjeDetails = ({
   result: IOrganizacja | undefined;
 }) => {
   const { t } = useTranslation("translation");
-  const { data: wydzialData } = useOne<IWydzialy>({
+  const { result: wydzialData } = useOne<IWydzialy>({
     resource: "wydzialy",
     id: result?.wydzial || "",
     queryOptions: {
@@ -21,13 +22,14 @@ const OrganizacjeDetails = ({
     },
   });
 
-  const { data: opiekunData } = useOne<IOpiekunowie>({
+  const { result: opiekunData } = useOne<IOpiekunowie>({
     resource: "opiekunowie",
     id: result?.opiekun || "",
     queryOptions: {
       enabled: !!result?.opiekun,
     },
   });
+
 
   return (
     <>
@@ -49,25 +51,37 @@ const OrganizacjeDetails = ({
       <Typography variant="body1" fontWeight="bold">
         {t("organizacje.fields.wydzial")}
       </Typography>
-      <TextField
-        value={wydzialData?.data?.nazwa_wydzialu ?? result?.wydzial ?? ""}
-      />
+      <TextField value={wydzialData?.nazwa_wydzialu ?? result?.wydzial ?? ""} />
 
       <Typography variant="body1" fontWeight="bold">
         {t("organizacje.fields.opiekun")}
       </Typography>
       <TextField
         value={
-          opiekunData?.data
-            ? `${opiekunData.data.imie} ${opiekunData.data.nazwisko}`
+          opiekunData
+            ? `${opiekunData.imie} ${opiekunData.nazwisko}`
             : (result?.opiekun ?? "")
         }
       />
 
       {result?.id && (
         <>
-          <div style={{ height: "400px", marginTop: "32px" }}>
+          <div style={{ minHeight: "400px", marginTop: "32px" }}>
             <ProjektyList
+              initialFilters={[
+                {
+                  field: "organizacja",
+                  operator: "eq",
+                  value: result.id,
+                },
+              ]}
+              sx={{ height: "100%", p: 0 }}
+              breadcrumb={false}
+            />
+          </div>
+
+          <div style={{ minHeight: "400px", marginTop: "32px" }}>
+            <SekcjeList
               initialFilters={[
                 {
                   field: "organizacja",

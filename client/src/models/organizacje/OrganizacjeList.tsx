@@ -15,12 +15,12 @@ import type { CrudFilters } from "@refinedev/core";
 import { type SxProps, type Theme } from "@mui/material";
 
 export default function OrganizacjeList({
-  initialFilters,
   sx,
+  filters,
   breadcrumb,
 }: {
-  initialFilters?: CrudFilters;
   sx?: SxProps<Theme>;
+  filters?: CrudFilters;
   breadcrumb?: React.ReactNode;
 }) {
   const { t } = useTranslation("translation");
@@ -57,7 +57,7 @@ export default function OrganizacjeList({
       UpdateComponent={OrganizacjeUpdate}
       CreateComponent={OrganizacjeCreate}
       ShowComponent={OrganizacjeShow}
-      initialFilters={initialFilters}
+      filters={filters}
       sx={sx}
       breadcrumb={breadcrumb}
     />

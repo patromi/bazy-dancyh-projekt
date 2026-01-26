@@ -48,7 +48,7 @@ export default function ProjektyList({
       UpdateComponent={ProjektyUpdate}
       CreateComponent={ProjektyCreate}
       ShowComponent={ProjektyShow}
-      initialFilters={initialFilters}
+      filters={initialFilters}
       sx={sx}
       breadcrumb={breadcrumb}
     />

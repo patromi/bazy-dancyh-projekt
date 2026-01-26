@@ -228,8 +228,8 @@
       "show": "Szczegóły roli"
     }
   },
-  "sekcja": {
-    "sekcja": "Sekcje",
+  "sekcje": {
+    "sekcje": "Sekcje",
     "fields": {
       "id": "Id",
       "nazwa_sekcji": "Nazwa sekcji",

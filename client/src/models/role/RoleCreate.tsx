@@ -1,17 +1,12 @@
+import CreateComponent from "@/components/CrudComponents/CreateComponent";
 import type { IRole, IRoleForm, ISekcja, ICzlonkowie } from "@/types";
 import { Autocomplete, Box, TextField } from "@mui/material";
-import { useSelect, type HttpError } from "@refinedev/core";
-import { Create } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
+import { useSelect } from "@refinedev/core";
+import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export default function RoleCreate() {
-  const { register, saveButtonProps } = useForm<IRole, HttpError, IRoleForm>({
-    refineCoreProps: {
-      resource: "role",
-      action: "create",
-    },
-  });
-
+  const { t } = useTranslation("translation");
   const { options: sekcjeOptions } = useSelect<ISekcja>({
     resource: "sekcje",
     optionLabel: "nazwa_sekcji",
@@ -25,53 +20,84 @@ export default function RoleCreate() {
   });
 
   return (
-    <Create saveButtonProps={saveButtonProps}>
-      <Box component="form" className="flex flex-col gap-8">
-        <TextField
-          {...register("nazwa_roli", {
-            required: "To pole jest wymagane",
-          })}
-          name="nazwa_roli"
-          label="Nazwa roli"
-        />
+    <CreateComponent<IRole, IRoleForm>
+      resource="role"
+      renderChildren={({ register, control, formState: { errors } }) => (
+        <Box component="form" className="flex flex-col gap-8">
+          <TextField
+            {...register("nazwa_roli", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("role.fields.nazwa_roli")}
+            error={!!errors.nazwa_roli}
+            helperText={errors.nazwa_roli?.message}
+          />
 
-        <TextField
-          {...register("liczba_pkt_do_stypendium", {
-            required: "To pole jest wymagane",
-          })}
-          name="liczba_pkt_do_stypendium"
-          label="Liczba punktów do stypendium"
-          type="number"
-        />
+          <TextField
+            {...register("liczba_pkt_do_stypendium", {
+              required: "To pole jest wymagane",
+            })}
+            label={t("role.fields.liczba_pkt_do_stypendium")}
+            type="number"
+            error={!!errors.liczba_pkt_do_stypendium}
+            helperText={errors.liczba_pkt_do_stypendium?.message}
+          />
 
-        <Autocomplete
-          options={sekcjeOptions}
-          noOptionsText="Brak sekcji"
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              {...register("sekcja", {
-                required: "To pole jest wymagane",
-              })}
-              label="Sekcja"
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="sekcja"
+            rules={{ required: "To pole jest wymagane" }}
+            render={({ field, fieldState }) => (
+              <Autocomplete
+                {...field}
+                options={sekcjeOptions}
+                noOptionsText="Brak sekcji"
+                onChange={(_, value) => {
+                  field.onChange(value?.value);
+                }}
+                value={
+                  sekcjeOptions.find((o) => o.value === field.value) || null
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t("role.fields.sekcja")}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
+              />
+            )}
+          />
 
-        <Autocomplete
-          options={czlonkowieOptions}
-          noOptionsText="Brak członków"
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              {...register("czlonek", {
-                required: "To pole jest wymagane",
-              })}
-              label="Członek"
-            />
-          )}
-        />
-      </Box>
-    </Create>
+          <Controller
+            control={control}
+            name="czlonek"
+            rules={{ required: "To pole jest wymagane" }}
+            render={({ field, fieldState }) => (
+              <Autocomplete
+                {...field}
+                options={czlonkowieOptions}
+                noOptionsText="Brak członków"
+                onChange={(_, value) => {
+                  field.onChange(value?.value);
+                }}
+                value={
+                  czlonkowieOptions.find((o) => o.value === field.value) || null
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t("role.fields.czlonek")}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
+              />
+            )}
+          />
+        </Box>
+      )}
+    />
   );
 }

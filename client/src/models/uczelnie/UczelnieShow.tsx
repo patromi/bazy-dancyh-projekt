@@ -16,19 +16,19 @@ export default function UczelnieShow() {
           <Typography variant="body1" fontWeight="bold">
             Nazwa
           </Typography>
-          <TextField value={result?.nazwa ?? ""} />
+          <TextField value={result ? result.nazwa : ""} />
 
           <Typography variant="body1" fontWeight="bold">
             Adres uczelni
           </Typography>
-          <TextField value={result?.adres_uczelni ?? ""} />
+          <TextField value={result ? result.adres_uczelni : ""} />
 
-          {result?.id && (
+          {result && (
             <>
               <div style={{ height: "400px", marginTop: "32px" }}>
                 <WydzialyList
                   initialFilters={[
-                    { field: "uczelnia", operator: "eq", value: result.id },
+                    { field: "uczelnia", operator: "ina", value: result.id },
                   ]}
                   sx={{ height: "100%", p: 0 }}
                   breadcrumb={false}
@@ -38,7 +38,7 @@ export default function UczelnieShow() {
               <div style={{ height: "400px", marginTop: "32px" }}>
                 <BudynkiList
                   initialFilters={[
-                    { field: "uczelnia", operator: "eq", value: result.id },
+                    { field: "uczelnia", operator: "ina", value: result.id },
                   ]}
                   sx={{ height: "100%", p: 0 }}
                   breadcrumb={false}
