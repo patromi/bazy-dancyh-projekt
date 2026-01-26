@@ -6,16 +6,10 @@ import { useOne } from "@refinedev/core";
 import BudynkiUpdate from "./BudynkiUpdate";
 import { useTranslation } from "react-i18next";
 import PokojeList from "../pokoje/PokojeList";
+import ForeignShowField from "@/components/Fields/ForeignShowField";
 
 const BudynkiDetails = ({ result }: { result: IBundynki | undefined }) => {
   const { t } = useTranslation("translation");
-  const { data: uczelniaData } = useOne<IUczelnie>({
-    resource: "uczelnie",
-    id: result?.uczelnia || "",
-    queryOptions: {
-      enabled: !!result?.uczelnia,
-    },
-  });
 
   return (
     <>
@@ -29,10 +23,12 @@ const BudynkiDetails = ({ result }: { result: IBundynki | undefined }) => {
       </Typography>
       <TextField value={result?.adres_budynku ?? ""} />
 
-      <Typography variant="body1" fontWeight="bold">
-        {t("budynki.fields.uczelnia")}
-      </Typography>
-      <TextField value={uczelniaData?.data?.nazwa ?? result?.uczelnia ?? ""} />
+      <ForeignShowField<IUczelnie>
+        resource="uczelnie"
+        id={result?.uczelnia}
+        label={t("budynki.fields.uczelnia")}
+        valueLabel="nazwa"
+      />
 
       {result?.id && (
         <>

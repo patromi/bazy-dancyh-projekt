@@ -1,17 +1,12 @@
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
-import type { IProjekty, IProjektyForm, IOrganizacja } from "@/types";
-import { Autocomplete, Box, TextField } from "@mui/material";
-import { useSelect } from "@refinedev/core";
-import { Controller } from "react-hook-form";
+import ForeignKeyField from "@/components/Fields/ForeignInputField";
+import type { IProjekty, IProjektyForm } from "@/types";
+import { Box, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 export default function ProjektyUpdate() {
   const { t } = useTranslation("translation");
-  const { options: organizacjeOptions } = useSelect<IOrganizacja>({
-    resource: "organizacje",
-    optionLabel: "nazwa_organizacji",
-    optionValue: "id",
-  });
+
 
   return (
     <UpdateComponent<IProjekty, IProjektyForm>
@@ -49,36 +44,14 @@ export default function ProjektyUpdate() {
             slotProps={{ inputLabel: { shrink: true } }}
           />
 
-          <Controller
-            control={control}
+          <ForeignKeyField
             name="organizacja"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={organizacjeOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("projekty.fields.organizacja")}
-                    error={!!field.ref?.current?.error}
-                    disabled={isLoading}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                  />
-                )}
-                value={
-                  organizacjeOptions.find((o) => o.value === field.value) ||
-                  null
-                }
-              />
-            )}
+            label={t("projekty.fields.organizacja")}
+            control={control}
+            resource="organizacje"
+            optionLabel="nazwa_organizacji"
+            optionValue="id"
+            disabled={isLoading}
           />
         </Box>
       )}

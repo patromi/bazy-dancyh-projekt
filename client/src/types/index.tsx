@@ -1,5 +1,8 @@
 type DateString = `${string & { __brand: "\\d{4}-\\d{2}-\\d{2}" }}`;
 
+
+export type FormType<T> = Omit<T, "id">;
+
 export interface IBundynki {
   id: number;
   nazwa_budynku: string;
@@ -7,7 +10,7 @@ export interface IBundynki {
   uczelnia: IUczelnie["id"];
 }
 
-export type IBudynkiForm = Omit<IBundynki, "id">;
+export type IBudynkiForm = FormType<IBundynki>;
 
 export interface ICzlonkowie {
   id: number;
@@ -19,7 +22,7 @@ export interface ICzlonkowie {
   numer_kontaktowy: string;
 }
 
-export type ICzlonkowieForm = Omit<ICzlonkowie, "id">;
+export type ICzlonkowieForm = FormType<ICzlonkowie>;
 
 export interface IOpiekunowie {
   id: number;
@@ -31,7 +34,7 @@ export interface IOpiekunowie {
   numer_kontaktowy: string;
 }
 
-export type IOpiekunowieForm = Omit<IOpiekunowie, "id">;
+export type IOpiekunowieForm = FormType<IOpiekunowie>;
 
 export interface IOrganizacja {
   id: number;
@@ -42,7 +45,7 @@ export interface IOrganizacja {
   wydzial: IWydzialy["id"];
 }
 
-export type IOrganizacjaForm = Omit<IOrganizacja, "id">;
+export type IOrganizacjaForm = FormType<IOrganizacja>;
 
 export interface IPokoje {
   id: number;
@@ -51,7 +54,7 @@ export interface IPokoje {
   budynek: IBundynki["id"];
 }
 
-export type IPokojeForm = Omit<IPokoje, "id">;
+export type IPokojeForm = FormType<IPokoje>;
 
 export interface IProjekty {
   id: number;
@@ -61,7 +64,7 @@ export interface IProjekty {
   organizacja: IOrganizacja["id"];
 }
 
-export type IProjektyForm = Omit<IProjekty, "id">;
+export type IProjektyForm = FormType<IProjekty>;
 
 export interface IRole {
   id: number;
@@ -71,7 +74,7 @@ export interface IRole {
   czlonek: ICzlonkowie["id"];
 }
 
-export type IRoleForm = Omit<IRole, "id">;
+export type IRoleForm = FormType<IRole>;
 
 export interface ISekcja {
   id: number;
@@ -81,7 +84,7 @@ export interface ISekcja {
   organizacja: IOrganizacja["id"];
 }
 
-export type ISekcjaForm = Omit<ISekcja, "id">;
+export type ISekcjaForm = FormType<ISekcja>;
 
 export interface IUczelnie {
   id: number;
@@ -89,7 +92,7 @@ export interface IUczelnie {
   adres_uczelni: string;
 }
 
-export type IUczelnieForm = Omit<IUczelnie, "id">;
+export type IUczelnieForm = FormType<IUczelnie>;
 
 export interface IWydarzenia {
   id: number;
@@ -101,7 +104,7 @@ export interface IWydarzenia {
   pokoj: IPokoje["id"];
 }
 
-export type IWydarzeniaForm = Omit<IWydarzenia, "id">;
+export type IWydarzeniaForm = FormType<IWydarzenia>;
 
 export interface IWydzialy {
   id: number;
@@ -110,4 +113,4 @@ export interface IWydzialy {
   uczelnia: IUczelnie["id"];
 }
 
-export type IWydzialyForm = Omit<IWydzialy, "id">;
+export type IWydzialyForm = FormType<IWydzialy>;

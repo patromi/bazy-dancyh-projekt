@@ -1,32 +1,19 @@
 import CreateComponent from "@/components/CrudComponents/CreateComponent";
-import {
-  Autocomplete,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-} from "@mui/material";
-import { useSelect } from "@refinedev/core";
-import { Controller } from "react-hook-form";
+import ForeignKeyField from "@/components/Fields/ForeignInputField";
+import type {
+  IOpiekunowie,
+  IOrganizacja,
+  IOrganizacjaForm,
+  IWydzialy,
+} from "@/types";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import type { IOpiekunowie, IWydzialy } from "@/types";
 
 export default function OrganizacjeCreate() {
   const { t } = useTranslation("translation");
 
-  const { options: opiekunowieOptions } = useSelect<IOpiekunowie>({
-    resource: "opiekunowie",
-    optionLabel: (item) => `${item.imie} ${item.nazwisko}`,
-    optionValue: "id",
-  });
-
-  const { options: wydzialyOptions } = useSelect<IWydzialy>({
-    resource: "wydzialy",
-    optionLabel: "nazwa_wydzialu",
-    optionValue: "id",
-  });
-
   return (
-    <CreateComponent
+    <CreateComponent<IOrganizacja, IOrganizacjaForm>
       resource="organizacje"
       renderChildren={({ register, control }) => (
         <>
@@ -46,63 +33,24 @@ export default function OrganizacjeCreate() {
             slotProps={{ inputLabel: { shrink: true } }}
           />
 
-          <Controller
-            control={control}
+          <ForeignKeyField<IOrganizacjaForm, IWydzialy>
             name="wydzial"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={wydzialyOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("organizacje.fields.wydzial")}
-                    error={!!field.ref?.current?.error}
-                  />
-                )}
-                value={
-                  wydzialyOptions.find((o) => o.value === field.value) || null
-                }
-              />
-            )}
+            label={t("organizacje.fields.wydzial")}
+            resource="wydzialy"
+            optionLabel="nazwa_wydzialu"
+            optionValue="id"
+            control={control}
           />
 
-          <Controller
-            control={control}
+          <ForeignKeyField<IOrganizacjaForm, IOpiekunowie>
             name="opiekun"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={opiekunowieOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("organizacje.fields.opiekun")}
-                    error={!!field.ref?.current?.error}
-                  />
-                )}
-                value={
-                  opiekunowieOptions.find((o) => o.value === field.value) ||
-                  null
-                }
-              />
-            )}
+            label={t("organizacje.fields.opiekun")}
+            resource="opiekunowie"
+            optionValue="id"
+            optionLabel={(option) =>
+              `${option.imie} ${option.drugie_imie} ${option.nazwisko}`
+            }
+            control={control}
           />
 
           <FormControlLabel

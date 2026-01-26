@@ -1,8 +1,8 @@
-import { Stack, IconButton, Tooltip } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
+import { IconButton, Stack, Tooltip } from "@mui/material";
+import { type BaseRecord } from "@refinedev/core";
 import { DeleteButton } from "@refinedev/mui";
-import { type BaseRecord, useGo } from "@refinedev/core";
+import LookatButton from "../LookatButton";
 
 interface DataGridCustomCellProps {
   row: BaseRecord;
@@ -16,26 +16,13 @@ export default function DataGridCustomCell({
   resource,
 }: DataGridCustomCellProps) {
   const handleEdit = () => setEditId(row.id as number);
-  const go = useGo();
 
   return (
     <Stack direction="row" spacing={0.5}>
       <Tooltip title="Podgląd" disableInteractive>
-        <IconButton
-          size="small"
-          color="info"
-          onClick={() =>
-            go({
-              to: {
-                resource: resource,
-                action: "show",
-                id: row.id,
-              },
-            })
-          }
-        >
-          <VisibilityIcon fontSize="small" />
-        </IconButton>
+        <span>
+          <LookatButton resource={resource} id={row.id!} />
+        </span>
       </Tooltip>
       <Tooltip title="Edytuj" disableInteractive>
         <IconButton size="small" color="primary" onClick={handleEdit}>
