@@ -1,70 +1,13 @@
+import type { InDrawerProps } from "@/components/CrudComponents";
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
 import type { ICzlonkowie, ICzlonkowieForm } from "@/types";
-import { Box, TextField } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import CzlonkowieForm from "./CzlonkowieForm";
 
-export default function CzlonkowieUpdate() {
-  const { t } = useTranslation("translation");
-
+export default function CzlonkowieUpdate(props: InDrawerProps) {
   return (
     <UpdateComponent<ICzlonkowie, ICzlonkowieForm>
-      resource="czlonkowie"
-      renderChildren={({ register, formState: { isLoading } }) => (
-        <Box component="form" className="flex flex-col gap-8">
-          <TextField
-            {...register("pesel", {
-              required: "To pole jest wymagane",
-            })}
-            label={t("czlonkowie.fields.pesel")}
-            disabled={isLoading}
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
-
-          <TextField
-            {...register("imie", {
-              required: "To pole jest wymagane",
-            })}
-            label={t("czlonkowie.fields.imie")}
-            disabled={isLoading}
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
-
-          <TextField
-            {...register("drugie_imie")}
-            label={t("czlonkowie.fields.drugie_imie")}
-            disabled={isLoading}
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
-
-          <TextField
-            {...register("nazwisko", {
-              required: "To pole jest wymagane",
-            })}
-            label={t("czlonkowie.fields.nazwisko")}
-            disabled={isLoading}
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
-
-          <TextField
-            {...register("email", {
-              required: "To pole jest wymagane",
-            })}
-            label={t("czlonkowie.fields.email")}
-            type="email"
-            disabled={isLoading}
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
-
-          <TextField
-            {...register("numer_kontaktowy", {
-              required: "To pole jest wymagane",
-            })}
-            label={t("czlonkowie.fields.numer_kontaktowy")}
-            disabled={isLoading}
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
-        </Box>
-      )}
+      {...props}
+      renderChildren={CzlonkowieForm}
     />
   );
 }
