@@ -27,6 +27,7 @@ export default function UczelnieShow() {
             <>
               <div style={{ height: "400px", marginTop: "32px" }}>
                 <WydzialyList
+                  inShow
                   initialFilters={[
                     { field: "uczelnia", operator: "ina", value: result.id },
                   ]}

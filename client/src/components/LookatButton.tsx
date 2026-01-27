@@ -11,23 +11,28 @@ export default function LookatButton(props: {
   const go = useGo();
 
   return (
-    <IconButton
-      size="small"
-      color="info"
-      onClick={() =>
-        go({
-          to: {
-            resource: props.resource,
-            action: "show",
-            id: props.id,
-          },
-        })
-      }
-    >
-      <Stack direction="row" spacing={0.5} alignItems="center">
-        <Typography fontSize="small">{props.text}</Typography>
-        <VisibilityIcon fontSize="small" />
-      </Stack>
-    </IconButton>
+    <Stack direction="row" alignItems="center" height="100%">
+      <IconButton
+        sx={{ borderRadius: props.text ? 1 : "50%", gap: 0.5 }}
+        color="inherit"
+        size="small"
+        onClick={() =>
+          go({
+            to: {
+              resource: props.resource,
+              action: "show",
+              id: props.id,
+            },
+          })
+        }
+      >
+        {props.text && <Typography fontSize="small">{props.text}</Typography>}
+        <VisibilityIcon
+          color="info"
+          fontSize="small"
+          sx={{ displayPrint: "none" }}
+        />
+      </IconButton>
+    </Stack>
   );
 }

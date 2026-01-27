@@ -18,6 +18,7 @@ export default function UczelnieList() {
       flex: 1,
       minWidth: 200,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "adres_uczelni",
@@ -25,6 +26,7 @@ export default function UczelnieList() {
       flex: 1,
       minWidth: 200,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
   ];
 

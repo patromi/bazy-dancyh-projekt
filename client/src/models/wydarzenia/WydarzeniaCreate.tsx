@@ -1,28 +1,16 @@
 import CreateComponent from "@/components/CrudComponents/CreateComponent";
+import ForeignInputField from "@/components/Fields/ForeignInputField";
 import type {
-  IWydarzenia,
-  IWydarzeniaForm,
   IOrganizacja,
   IPokoje,
+  IWydarzenia,
+  IWydarzeniaForm,
 } from "@/types";
-import { Autocomplete, Box, TextField } from "@mui/material";
-import { useSelect } from "@refinedev/core";
-import { Controller } from "react-hook-form";
+import { Box, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 export default function WydarzeniaCreate() {
   const { t } = useTranslation("translation");
-  const { options: organizacjeOptions } = useSelect<IOrganizacja>({
-    resource: "organizacje",
-    optionLabel: "nazwa_organizacji",
-    optionValue: "id",
-  });
-
-  const { options: pokojeOptions } = useSelect<IPokoje>({
-    resource: "pokoje",
-    optionLabel: "nazwa_pokoju",
-    optionValue: "id",
-  });
 
   return (
     <CreateComponent<IWydarzenia, IWydarzeniaForm>
@@ -71,58 +59,22 @@ export default function WydarzeniaCreate() {
             helperText={errors.opis_wydarzenia?.message}
           />
 
-          <Controller
-            control={control}
+          <ForeignInputField<IWydarzeniaForm, IOrganizacja>
             name="organizacja"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field, fieldState }) => (
-              <Autocomplete
-                {...field}
-                options={organizacjeOptions}
-                noOptionsText="Brak organizacji"
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                value={
-                  organizacjeOptions.find((o) => o.value === field.value) || null
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("wydarzenia.fields.organizacja")}
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
-                  />
-                )}
-              />
-            )}
+            label={t("wydarzenia.fields.organizacja")}
+            resource="organizacje"
+            control={control}
+            optionValue="id"
+            optionLabel="nazwa_organizacji"
           />
 
-           <Controller
-            control={control}
+          <ForeignInputField<IWydarzeniaForm, IPokoje>
             name="pokoj"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field, fieldState }) => (
-              <Autocomplete
-                {...field}
-                options={pokojeOptions}
-                noOptionsText="Brak pokoi"
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                value={
-                  pokojeOptions.find((o) => o.value === field.value) || null
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("wydarzenia.fields.pokoj")}
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
-                  />
-                )}
-              />
-            )}
+            label={t("wydarzenia.fields.pokoj")}
+            resource="pokoje"
+            control={control}
+            optionValue="id"
+            optionLabel="nazwa_pokoju"
           />
         </Box>
       )}

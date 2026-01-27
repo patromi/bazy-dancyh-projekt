@@ -1,4 +1,8 @@
 {
+  "common": {
+    "yes": "Tak",
+    "no": "Nie"
+  },
   "pages": {
     "login": {
       "title": "Sign in to your account",
@@ -95,25 +99,29 @@
     "clone": "Klonuj",
     "notAccessTitle": "Nie masz uprawnień do dostępu"
   },
-  "warnWhenUnsavedChanges": "Are you sure you want to leave? You have unsaved changes.",
+  "warnWhenUnsavedChanges": "Czy na pewno chcesz opuścić stronę? Masz niezapisane zmiany.",
   "notifications": {
-    "success": "Successful",
-    "error": "Error (status code: {{statusCode}})",
-    "undoable": "You have {{seconds}} seconds to undo",
-    "createSuccess": "Successfully created {{resource}}",
-    "createError": "There was an error creating {{resource}} (status code: {{statusCode}})",
-    "deleteSuccess": "Successfully deleted {{resource}}",
-    "deleteError": "Error when deleting {{resource}} (status code: {{statusCode}})",
-    "editSuccess": "Successfully edited {{resource}}",
-    "editError": "Error when editing {{resource}} (status code: {{statusCode}})",
-    "importProgress": "Importing: {{processed}}/{{total}}"
+    "success": "Sukces",
+    "error": "Błąd (kod statusu: {{statusCode}})",
+    "undoable": "Masz {{seconds}} sekund na cofnięcie",
+    "createSuccess": "Pomyślnie utworzono {{resource}}",
+    "createError": "Wystąpił błąd podczas tworzenia {{resource}} (kod statusu: {{statusCode}})",
+    "deleteSuccess": "Pomyślnie usunięto {{resource}}",
+    "deleteError": "Błąd podczas usuwania {{resource}} (kod statusu: {{statusCode}})",
+    "editSuccess": "Pomyślnie edytowano {{resource}}",
+    "editError": "Błąd podczas edytowania {{resource}} (kod statusu: {{statusCode}})",
+    "importProgress": "Importowanie: {{processed}}/{{total}}",
+    "redirectingToList": "Przekierowywanie do listy zasobów",
+    "4xx": {
+      "404": "Nie znaleziono zasobu"
+    }
   },
-  "loading": "Loading",
+  "loading": "Ładowanie...",
   "tags": {
-    "clone": "Clone"
+    "clone": "Klonuj"
   },
   "dashboard": {
-    "title": "Dashboard"
+    "title": "Panel główny"
   },
   "table": {
     "actions": "Akcje"
@@ -122,18 +130,18 @@
     "default": "refine",
     "suffix": " | Refine",
     "post": {
-      "list": "Posts | Refine",
-      "show": "#{{id}} Show Post | Refine",
-      "edit": "#{{id}} Edit Post | Refine",
-      "create": "Create new Post | Refine",
-      "clone": "#{{id}} Clone Post | Refine"
+      "list": "Posty | Refine",
+      "show": "#{{id}} Pokaż post | Refine",
+      "edit": "#{{id}} Edytuj post | Refine",
+      "create": "Utwórz nowy post | Refine",
+      "clone": "#{{id}} Klonuj post | Refine"
     }
   },
   "autoSave": {
-    "success": "saved",
-    "error": "auto save failure",
-    "loading": "saving...",
-    "idle": "waiting for changes"
+    "success": "Zapisano automatycznie",
+    "error": "Błąd zapisu automatycznego",
+    "loading": "Zapisywanie...",
+    "idle": "Oczekiwanie na zmiany"
   },
   "dataGrid": {
     "rowsPerPage": "Wierszy na stronę:",
@@ -141,7 +149,9 @@
     "deleteSelected": "Usuń zaznaczone ({{count}})",
     "columns": "Kolumny",
     "density": "Gęstość",
-    "export": "Eksportuj"
+    "export": "Eksportuj",
+    "deleteSelectedTitle": "Czy na pewno?",
+    "deleteSelectedContent": "Chcesz usunąć zaznaczone elementy?"
   },
   "navbar": {
     "navigation": "Nawigacja"

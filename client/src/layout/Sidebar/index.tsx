@@ -10,7 +10,7 @@ export default function Sidebar(props: PropsWithChildren<{}>) {
   const { menuItems, selectedKey, defaultOpenKeys } = useMenu();
 
   return (
-    <Box display="grid" gridTemplateColumns="250px 1fr" minHeight="100svh">
+    <Box display="grid" gridTemplateColumns="250px 1fr" height="100svh">
       <Stack
         direction="column"
         padding={1}
@@ -33,7 +33,7 @@ export default function Sidebar(props: PropsWithChildren<{}>) {
         </List>
       </Stack>
 
-      <Box flex={1} overflow="auto">
+      <Box flex={1} height="100%" overflow="auto">
         {props.children}
       </Box>
     </Box>

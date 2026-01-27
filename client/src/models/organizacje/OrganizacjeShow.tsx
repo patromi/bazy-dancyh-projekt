@@ -1,100 +1,83 @@
 import ShowComponent from "@/components/CrudComponents/ShowComponent";
-import type { IOrganizacja, IWydzialy, IOpiekunowie } from "@/types";
-import { Typography, Checkbox, FormControlLabel } from "@mui/material";
+import LookatButton from "@/components/LookatButton";
+import type { IOrganizacja } from "@/types";
+import { Typography } from "@mui/material";
 import { TextFieldComponent as TextField } from "@refinedev/mui";
-import { useOne } from "@refinedev/core";
-import OrganizacjeUpdate from "./OrganizacjeUpdate";
 import { useTranslation } from "react-i18next";
 import ProjektyList from "../projekty/ProjektyList";
 import SekcjeList from "../sekcje/SekcjeList";
+import OrganizacjeUpdate from "./OrganizacjeUpdate";
 
-const OrganizacjeDetails = ({
-  result,
-}: {
-  result: IOrganizacja | undefined;
-}) => {
+const OrganizacjeDetails = ({ result }: { result: IOrganizacja }) => {
   const { t } = useTranslation("translation");
-  const { result: wydzialData } = useOne<IWydzialy>({
-    resource: "wydzialy",
-    id: result?.wydzial || "",
-    queryOptions: {
-      enabled: !!result?.wydzial,
-    },
-  });
-
-  const { result: opiekunData } = useOne<IOpiekunowie>({
-    resource: "opiekunowie",
-    id: result?.opiekun || "",
-    queryOptions: {
-      enabled: !!result?.opiekun,
-    },
-  });
-
 
   return (
     <>
       <Typography variant="body1" fontWeight="bold">
         {t("organizacje.fields.nazwa_organizacji")}
       </Typography>
-      <TextField value={result?.nazwa_organizacji ?? ""} />
+      <TextField value={result.nazwa_organizacji} />
 
       <Typography variant="body1" fontWeight="bold">
         {t("organizacje.fields.data_zalozenia")}
       </Typography>
-      <TextField value={result?.data_zalozenia ?? ""} />
+      <TextField value={result.data_zalozenia} />
 
-      <FormControlLabel
-        control={<Checkbox checked={result?.czy_aktywna ?? false} disabled />}
-        label={t("organizacje.fields.czy_aktywna")}
+      <Typography variant="body1" fontWeight="bold">
+        {t("organizacje.fields.czy_aktywna")}
+      </Typography>
+
+      <TextField
+        value={result.czy_aktywna ? t("common.yes") : t("common.no")}
       />
 
       <Typography variant="body1" fontWeight="bold">
         {t("organizacje.fields.wydzial")}
       </Typography>
-      <TextField value={wydzialData?.nazwa_wydzialu ?? result?.wydzial ?? ""} />
+      <LookatButton
+        resource="wydzialy"
+        id={result.wydzial}
+        text={result.wydzial_name}
+      />
 
       <Typography variant="body1" fontWeight="bold">
         {t("organizacje.fields.opiekun")}
       </Typography>
-      <TextField
-        value={
-          opiekunData
-            ? `${opiekunData.imie} ${opiekunData.nazwisko}`
-            : (result?.opiekun ?? "")
-        }
+      <LookatButton
+        resource="opiekunowie"
+        id={result.opiekun}
+        text={result.opiekun_name}
       />
 
-      {result?.id && (
-        <>
-          <div style={{ minHeight: "400px", marginTop: "32px" }}>
-            <ProjektyList
-              initialFilters={[
-                {
-                  field: "organizacja",
-                  operator: "eq",
-                  value: result.id,
-                },
-              ]}
-              sx={{ height: "100%", p: 0 }}
-              breadcrumb={false}
-            />
-          </div>
+      <hr />
 
-          <div style={{ minHeight: "400px", marginTop: "32px" }}>
-            <SekcjeList
-              initialFilters={[
-                {
-                  field: "organizacja",
-                  operator: "eq",
-                  value: result.id,
-                },
-              ]}
-              sx={{ height: "100%", p: 0 }}
-              breadcrumb={false}
-            />
-          </div>
-        </>
-      )}
+      <div style={{ minHeight: "400px" }}>
+        <ProjektyList
+          initialFilters={[
+            {
+              field: "organizacja",
+              operator: "eq",
+              value: result.id,
+            },
+          ]}
+          sx={{ height: "100%", p: 0 }}
+          breadcrumb={false}
+        />
+      </div>
+
+      <div style={{ minHeight: "400px" }}>
+        <SekcjeList
+          initialFilters={[
+            {
+              field: "organizacja",
+              operator: "eq",
+              value: result.id,
+            },
+          ]}
+          sx={{ height: "100%", p: 0 }}
+          breadcrumb={false}
+        />
+      </div>
     </>
   );
 };

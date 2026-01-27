@@ -1,12 +1,16 @@
 import React, { useCallback, useMemo } from "react";
 
 import { Drawer, Stack, type SxProps, type Theme } from "@mui/material";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  type GridColDef,
+  type DataGridProps,
+} from "@mui/x-data-grid";
 import { plPL } from "@mui/x-data-grid/locales";
 import type { BaseKey, BaseRecord, CrudFilters } from "@refinedev/core";
 import { List, useDataGrid } from "@refinedev/mui";
 
-import DataGridCustomCell from "@/components/DataGrid/DataGridCustomCell";
+import DataGridCustomActionCell from "@/components/DataGrid/DataGridCustomActionCell";
 import DataGridCustomFooter from "@/components/DataGrid/DataGridCustomFooter";
 import DataGridCustomToolbar from "@/components/DataGrid/DataGridCustomToolbar";
 import type { InDrawerProps } from ".";
@@ -17,6 +21,8 @@ type TListComponentProps<R extends BaseRecord> = {
   filters?: CrudFilters;
   sx?: SxProps<Theme>;
   breadcrumb?: React.ReactNode;
+
+  dataGridProps?: Partial<DataGridProps>;
 
   ShowComponent?: React.FC<InDrawerProps>;
   UpdateComponent?: React.FC<InDrawerProps>;
@@ -35,7 +41,7 @@ export default function ListComponent<R extends BaseRecord>(
     () => [
       ...props.columns.map((column) => ({
         ...column,
-        editable: editInline,
+        editable: column.editable && editInline,
       })),
       {
         field: "actions",
@@ -44,7 +50,7 @@ export default function ListComponent<R extends BaseRecord>(
         width: 150,
         sortable: false,
         renderCell: ({ row }) => (
-          <DataGridCustomCell
+          <DataGridCustomActionCell
             row={row}
             setEditId={handleOpen}
             resource={props.resource}
@@ -58,6 +64,7 @@ export default function ListComponent<R extends BaseRecord>(
   const { dataGridProps, setFilters } = useDataGrid<R>({
     resource: props.resource,
     filters: { permanent: props.filters },
+    editable: true,
   });
 
   const onSearch = useCallback(
@@ -94,9 +101,10 @@ export default function ListComponent<R extends BaseRecord>(
         }}
       >
         <DataGrid
+          {...dataGridProps}
+          {...props.dataGridProps}
           sx={{ height: "100%" }}
           localeText={plPL.components.MuiDataGrid.defaultProps.localeText}
-          {...dataGridProps}
           columns={columns}
           checkboxSelection
           slots={{

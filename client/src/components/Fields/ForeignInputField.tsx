@@ -8,7 +8,6 @@ import {
 import {
   Controller,
   type Control,
-  type Path,
   type RegisterOptions,
 } from "react-hook-form";
 
@@ -16,7 +15,7 @@ export default function ForeignKeyField<
   M extends BaseRecord,
   S extends BaseRecord,
 >(props: {
-  name: Path<M>;
+  name: keyof M;
   label: string;
   resource: string;
   optionLabel: UseSelectProps<S, HttpError, S>["optionLabel"];
@@ -46,9 +45,7 @@ export default function ForeignKeyField<
           onChange={(_, value) => {
             field.onChange(value?.value);
           }}
-          isOptionEqualToValue={(option, value) =>
-            option.value === value?.value || option.value === value
-          }
+          isOptionEqualToValue={(option, value) => option.value === value}
           getOptionLabel={(option) => option.label}
           renderInput={(params) => (
             <TextField

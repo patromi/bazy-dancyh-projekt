@@ -10,12 +10,13 @@ import Sekcje from "./sekcje";
 import Uczelnie from "./uczelnie";
 import Wydarzenia from "./wydarzenia";
 import Wydzialy from "./wydzialy";
+import type { InDrawerProps } from "@/components/CrudComponents";
 
 export type ResourcesComponents = {
   create: React.FC;
   list: React.FC;
-  show: React.FC;
-  update: React.FC;
+  show: React.FC<InDrawerProps>;
+  update: React.FC<InDrawerProps>;
 };
 
 export type Model = {
@@ -39,4 +40,4 @@ export const models: Model[] = [
 
 export const resources: ResourceProps[] = models.map((model) => model.resource);
 
-export const components: ResourcesComponents[] = [Budynki.components];
+// export const components: ResourcesComponents[] = [Budynki.components];

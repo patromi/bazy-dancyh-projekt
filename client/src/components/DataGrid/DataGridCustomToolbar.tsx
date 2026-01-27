@@ -16,7 +16,9 @@ export default function DataGridCustomToolbar(props: {
   };
 
   return (
-    <GridToolbarContainer sx={{ p: 1.5, borderBottom: "1px solid #e0e0e0" }}>
+    <GridToolbarContainer
+      sx={{ p: 1.5, borderBottom: "1px solid #e0e0e0", displayPrint: "none" }}
+    >
       <Stack
         spacing={1}
         direction="row"

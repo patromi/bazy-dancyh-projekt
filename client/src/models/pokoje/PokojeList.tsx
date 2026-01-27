@@ -13,11 +13,7 @@ import type { CrudFilters } from "@refinedev/core";
 
 import { type SxProps, type Theme } from "@mui/material";
 
-export default function PokojeList({
-  initialFilters,
-  sx,
-  breadcrumb,
-}: {
+export default function PokojeList(props: {
   initialFilters?: CrudFilters;
   sx?: SxProps<Theme>;
   breadcrumb?: React.ReactNode;
@@ -43,14 +39,12 @@ export default function PokojeList({
 
   return (
     <ListComponent<IPokoje>
+      {...props}
       resource="pokoje"
       columns={columns}
       UpdateComponent={PokojeUpdate}
       CreateComponent={PokojeCreate}
       ShowComponent={PokojeShow}
-      filters={initialFilters}
-      sx={sx}
-      breadcrumb={breadcrumb}
     />
   );
 }

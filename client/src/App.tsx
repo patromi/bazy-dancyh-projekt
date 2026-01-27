@@ -1,6 +1,10 @@
 import { Refine, type I18nProvider, type CrudFilters } from "@refinedev/core";
 import routerProvider from "@refinedev/react-router";
 import { BrowserRouter, Route, Routes, useParams } from "react-router";
+import {
+  useNotificationProvider,
+  RefineSnackbarProvider,
+} from "@refinedev/mui";
 
 import { dataProvider } from "@/rest-data-provider";
 import "./index.css";
@@ -54,120 +58,126 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Refine
-        dataProvider={dataProvider("http://localhost:8000/api")}
-        routerProvider={routerProvider}
-        i18nProvider={i18nProvider}
-        resources={resources}
-      >
-        <Sidebar>
-          <Routes>
-            <Route path="/">
-              <Route index element={<Index />} />
+      <RefineSnackbarProvider>
+        <Refine
+          dataProvider={dataProvider("http://localhost:8000/api")}
+          routerProvider={routerProvider}
+          i18nProvider={i18nProvider}
+          resources={resources}
+          notificationProvider={useNotificationProvider}
+        >
+          <Sidebar>
+            <Routes>
+              <Route path="/">
+                <Route index element={<Index />} />
 
-              {/* Logical Access Routes */}
-              <Route
-                path="uczelnie/:uczelniaId/budynki"
-                element={
-                  <FilteredResource
-                    resource="budynki"
-                    field="uczelnia"
-                    paramName="uczelniaId"
-                  />
-                }
-              />
-              <Route
-                path="uczelnie/:uczelniaId/wydzialy"
-                element={
-                  <FilteredResource
-                    resource="wydzialy"
-                    field="uczelnia"
-                    paramName="uczelniaId"
-                  />
-                }
-              />
-              <Route
-                path="budynki/:budynekId/pokoje"
-                element={
-                  <FilteredResource
-                    resource="pokoje"
-                    field="budynek"
-                    paramName="budynekId"
-                  />
-                }
-              />
-              <Route
-                path="wydzialy/:wydzialId/organizacje"
-                element={
-                  <FilteredResource
-                    resource="organizacje"
-                    field="wydzial"
-                    paramName="wydzialId"
-                  />
-                }
-              />
-              <Route
-                path="organizacje/:organizacjaId/projekty"
-                element={
-                  <FilteredResource
-                    resource="projekty"
-                    field="organizacja"
-                    paramName="organizacjaId"
-                  />
-                }
-              />
-              <Route
-                path="organizacje/:organizacjaId/wydarzenia"
-                element={
-                  <FilteredResource
-                    resource="wydarzenia"
-                    field="organizacja"
-                    paramName="organizacjaId"
-                  />
-                }
-              />
-              <Route
-                path="organizacje/:organizacjaId/sekcje"
-                element={
-                  <FilteredResource
-                    resource="sekcje"
-                    field="organizacja"
-                    paramName="organizacjaId"
-                  />
-                }
-              />
-              <Route
-                path="sekcje/:sekcjaId/role"
-                element={
-                  <FilteredResource
-                    resource="role"
-                    field="sekcja"
-                    paramName="sekcjaId"
-                  />
-                }
-              />
+                {/* Logical Access Routes */}
+                <Route
+                  path="uczelnie/:uczelniaId/budynki"
+                  element={
+                    <FilteredResource
+                      resource="budynki"
+                      field="uczelnia"
+                      paramName="uczelniaId"
+                    />
+                  }
+                />
+                <Route
+                  path="uczelnie/:uczelniaId/wydzialy"
+                  element={
+                    <FilteredResource
+                      resource="wydzialy"
+                      field="uczelnia"
+                      paramName="uczelniaId"
+                    />
+                  }
+                />
+                <Route
+                  path="budynki/:budynekId/pokoje"
+                  element={
+                    <FilteredResource
+                      resource="pokoje"
+                      field="budynek"
+                      paramName="budynekId"
+                    />
+                  }
+                />
+                <Route
+                  path="wydzialy/:wydzialId/organizacje"
+                  element={
+                    <FilteredResource
+                      resource="organizacje"
+                      field="wydzial"
+                      paramName="wydzialId"
+                    />
+                  }
+                />
+                <Route
+                  path="organizacje/:organizacjaId/projekty"
+                  element={
+                    <FilteredResource
+                      resource="projekty"
+                      field="organizacja"
+                      paramName="organizacjaId"
+                    />
+                  }
+                />
+                <Route
+                  path="organizacje/:organizacjaId/wydarzenia"
+                  element={
+                    <FilteredResource
+                      resource="wydarzenia"
+                      field="organizacja"
+                      paramName="organizacjaId"
+                    />
+                  }
+                />
+                <Route
+                  path="organizacje/:organizacjaId/sekcje"
+                  element={
+                    <FilteredResource
+                      resource="sekcje"
+                      field="organizacja"
+                      paramName="organizacjaId"
+                    />
+                  }
+                />
+                <Route
+                  path="sekcje/:sekcjaId/role"
+                  element={
+                    <FilteredResource
+                      resource="role"
+                      field="sekcja"
+                      paramName="sekcjaId"
+                    />
+                  }
+                />
 
-              {models.map(({ resource, components }) => (
-                <Route key={resource.name} path={resource.name}>
-                  <Route index element={React.createElement(components.list)} />
-                  <Route
-                    path="create"
-                    element={React.createElement(components.create)}
-                  />
-                  <Route
-                    path=":id"
-                    element={React.createElement(components.show)}
-                  />
-                  <Route
-                    path=":id/edit"
-                    element={React.createElement(components.update)}
-                  />
-                </Route>
-              ))}
-            </Route>
-          </Routes>
-        </Sidebar>
-      </Refine>
+                {models.map(({ resource, components }) => (
+                  <Route key={resource.name} path={resource.name}>
+                    <Route
+                      index
+                      element={React.createElement(components.list)}
+                    />
+                    <Route
+                      path="create"
+                      element={React.createElement(components.create)}
+                    />
+                    <Route
+                      path=":id"
+                      element={React.createElement(components.show)}
+                    />
+                    <Route
+                      path=":id/edit"
+                      element={React.createElement(components.update)}
+                    />
+                  </Route>
+                ))}
+              </Route>
+            </Routes>
+          </Sidebar>
+        </Refine>
+      </RefineSnackbarProvider>
     </BrowserRouter>
   );
 }

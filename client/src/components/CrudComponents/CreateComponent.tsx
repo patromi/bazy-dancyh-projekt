@@ -24,6 +24,7 @@ export default function CreateComponent<
       <Box component="form" className="flex flex-col gap-8">
         {props.renderChildren(form)}
       </Box>
+      <Box></Box>
     </Create>
   );
 }

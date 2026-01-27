@@ -1,6 +1,6 @@
 import CreateComponent from "@/components/CrudComponents/CreateComponent";
 import ForeignKeyField from "@/components/Fields/ForeignInputField";
-import type { IBundynki, IPokoje, IPokojeForm } from "@/types";
+import type { IBudynki, IPokoje, IPokojeForm } from "@/types";
 import { TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -28,7 +28,7 @@ export default function PokojeCreate() {
             type="number"
           />
 
-          <ForeignKeyField<IPokojeForm, IBundynki>
+          <ForeignKeyField<IPokojeForm, IBudynki>
             name="budynek"
             control={control}
             resource="budynki"

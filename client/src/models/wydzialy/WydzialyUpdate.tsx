@@ -1,20 +1,16 @@
+import type { InDrawerProps } from "@/components/CrudComponents";
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
-import type { IWydzialy, IWydzialyForm, IUczelnie } from "@/types";
-import { Autocomplete, Box, TextField } from "@mui/material";
-import { useSelect } from "@refinedev/core";
-import { Controller } from "react-hook-form";
+import ForeignInputField from "@/components/Fields/ForeignInputField";
+import type { IUczelnie, IWydzialy, IWydzialyForm } from "@/types";
+import { Box, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-export default function WydzialyUpdate() {
+export default function WydzialyUpdate(props: InDrawerProps) {
   const { t } = useTranslation("translation");
-  const { options: uczelnieOptions } = useSelect<IUczelnie>({
-    resource: "uczelnie",
-    optionLabel: "nazwa",
-    optionValue: "id",
-  });
 
   return (
     <UpdateComponent<IWydzialy, IWydzialyForm>
+      {...props}
       resource="wydzialy"
       renderChildren={({ register, control, formState: { isLoading } }) => (
         <Box component="form" className="flex flex-col gap-8">
@@ -26,7 +22,6 @@ export default function WydzialyUpdate() {
             disabled={isLoading}
             slotProps={{ inputLabel: { shrink: true } }}
           />
-
           <TextField
             {...register("adres_wydzialu", {
               required: "To pole jest wymagane",
@@ -36,35 +31,14 @@ export default function WydzialyUpdate() {
             slotProps={{ inputLabel: { shrink: true } }}
           />
 
-          <Controller
-            control={control}
+          <ForeignInputField<IWydzialyForm, IUczelnie>
             name="uczelnia"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={uczelnieOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("wydzialy.fields.uczelnia")}
-                    error={!!field.ref?.current?.error}
-                    disabled={isLoading}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                  />
-                )}
-                value={
-                  uczelnieOptions.find((o) => o.value === field.value) || null
-                }
-              />
-            )}
+            label={t("wydzialy.fields.uczelnia")}
+            resource="uczelnie"
+            control={control}
+            optionValue="id"
+            optionLabel="nazwa"
+            disabled={isLoading}
           />
         </Box>
       )}

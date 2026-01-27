@@ -10,7 +10,7 @@ interface DataGridCustomCellProps {
   resource: string;
 }
 
-export default function DataGridCustomCell({
+export default function DataGridCustomActionCell({
   row,
   setEditId,
   resource,

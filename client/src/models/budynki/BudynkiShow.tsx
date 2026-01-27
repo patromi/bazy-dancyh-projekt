@@ -1,14 +1,13 @@
 import ShowComponent from "@/components/CrudComponents/ShowComponent";
-import type { IBundynki, IUczelnie } from "@/types";
+import LookatButton from "@/components/LookatButton";
+import type { IBudynki } from "@/types";
 import { Typography } from "@mui/material";
 import { TextFieldComponent as TextField } from "@refinedev/mui";
-import { useOne } from "@refinedev/core";
-import BudynkiUpdate from "./BudynkiUpdate";
 import { useTranslation } from "react-i18next";
 import PokojeList from "../pokoje/PokojeList";
-import ForeignShowField from "@/components/Fields/ForeignShowField";
+import BudynkiUpdate from "./BudynkiUpdate";
 
-const BudynkiDetails = ({ result }: { result: IBundynki | undefined }) => {
+const BudynkiDetails = ({ result }: { result: IBudynki }) => {
   const { t } = useTranslation("translation");
 
   return (
@@ -23,33 +22,31 @@ const BudynkiDetails = ({ result }: { result: IBundynki | undefined }) => {
       </Typography>
       <TextField value={result?.adres_budynku ?? ""} />
 
-      <ForeignShowField<IUczelnie>
+      <Typography variant="body1" fontWeight="bold">
+        {t("budynki.fields.uczelnia")}
+      </Typography>
+      <LookatButton
+        text={result?.uczelnia_name ?? ""}
+        id={result?.uczelnia ?? ""}
         resource="uczelnie"
-        id={result?.uczelnia}
-        label={t("budynki.fields.uczelnia")}
-        valueLabel="nazwa"
       />
 
-      {result?.id && (
-        <>
-          <div style={{ height: "600px", width: "100%", marginTop: "32px" }}>
-            <PokojeList
-              initialFilters={[
-                { field: "budynek", operator: "eq", value: result.id },
-              ]}
-              sx={{ height: "100%", p: 0 }}
-              breadcrumb={false}
-            />
-          </div>
-        </>
-      )}
+      <div style={{ height: "600px", width: "100%", marginTop: "32px" }}>
+        <PokojeList
+          initialFilters={[
+            { field: "budynek", operator: "eq", value: result.id },
+          ]}
+          sx={{ height: "100%", p: 0 }}
+          breadcrumb={false}
+        />
+      </div>
     </>
   );
 };
 
 export default function BudynkiShow() {
   return (
-    <ShowComponent<IBundynki>
+    <ShowComponent<IBudynki>
       resource="budynki"
       UpdateComponent={BudynkiUpdate}
       renderChildren={(result) => <BudynkiDetails result={result} />}

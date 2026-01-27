@@ -5,24 +5,10 @@ import { TextFieldComponent as TextField } from "@refinedev/mui";
 import { useOne } from "@refinedev/core";
 import WydarzeniaUpdate from "./WydarzeniaUpdate";
 import { useTranslation } from "react-i18next";
+import LookatButton from "@/components/LookatButton";
 
-const WydarzeniaDetails = ({ result }: { result: IWydarzenia | undefined }) => {
+const WydarzeniaDetails = ({ result }: { result: IWydarzenia }) => {
   const { t } = useTranslation("translation");
-  const { result: organizacjaData } = useOne<IOrganizacja>({
-    resource: "organizacje",
-    id: result?.organizacja || "",
-    queryOptions: {
-      enabled: !!result?.organizacja,
-    },
-  });
-
-  const { result: pokojData } = useOne<IPokoje>({
-    resource: "pokoje",
-    id: result?.pokoj || "",
-    queryOptions: {
-      enabled: !!result?.pokoj,
-    },
-  });
 
   return (
     <>
@@ -49,14 +35,22 @@ const WydarzeniaDetails = ({ result }: { result: IWydarzenia | undefined }) => {
       <Typography variant="body1" fontWeight="bold">
         {t("wydarzenia.fields.organizacja")}
       </Typography>
-      <TextField
-        value={organizacjaData?.nazwa_organizacji ?? result?.organizacja ?? ""}
+
+      <LookatButton
+        text={result.organizacja.nazwa_organizacji}
+        id={result.organizacja.id}
+        resource="organizacje"
       />
 
       <Typography variant="body1" fontWeight="bold">
         {t("wydarzenia.fields.pokoj")}
       </Typography>
-      <TextField value={pokojData?.nazwa_pokoju ?? result?.pokoj ?? ""} />
+
+      <LookatButton
+        text={result.pokoj.nazwa_pokoju}
+        id={result.pokoj.id}
+        resource="pokoje"
+      />
     </>
   );
 };

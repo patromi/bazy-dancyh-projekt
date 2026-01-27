@@ -11,7 +11,7 @@ class Uczelnie(models.Model):
         verbose_name_plural = "Uczelnie"
 
     def __str__(self):
-        return self.nazwa or f"Uczelnia {self.id}"
+        return self.nazwa
 
 
 class Budynki(models.Model):
@@ -56,7 +56,7 @@ class Wydzialy(models.Model):
         verbose_name_plural = "Wydziały"
 
     def __str__(self):
-        return self.nazwa_wydzialu or f"Wydział {self.id}"
+        return f"{self.nazwa_wydzialu} ({self.uczelnia})"
 
 
 class Opiekunowie(models.Model):
@@ -129,7 +129,7 @@ class Organizacje(models.Model):
         verbose_name_plural = "Organizacje"
 
     def __str__(self):
-        return self.nazwa_organizacji or f"Organizacja {self.id}"
+        return self.nazwa_organizacji
 
 
 class Projekty(models.Model):
@@ -163,7 +163,7 @@ class Wydarzenia(models.Model):
         verbose_name_plural = "Wydarzenia"
 
     def __str__(self):
-        return f"{self.nazwa_wydarzenia} ({self.data_rozpoczecia})"
+        return self.nazwa_wydarzenia
 
 
 class Sekcje(models.Model):
@@ -195,4 +195,4 @@ class Role(models.Model):
         verbose_name_plural = "Role"
 
     def __str__(self):
-        return f"{self.nazwa_roli} - {self.czlonek}"
+        return self.nazwa_roli

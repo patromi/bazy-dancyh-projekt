@@ -73,7 +73,7 @@ export const dataProvider = (
 
     const { data } = await httpClient[requestMethod](
       `${apiUrl}/${resource}?${stringify({ id: ids })}`,
-      { headers },
+      { headers: { ...headers, Accept: "application/json" } },
     );
 
     return {

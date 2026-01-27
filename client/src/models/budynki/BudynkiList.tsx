@@ -1,5 +1,5 @@
 import { stringFilterOperators } from "@/rest-data-provider/filters";
-import type { IBundynki } from "@/types";
+import type { IBudynki } from "@/types";
 import { type GridColDef } from "@mui/x-data-grid";
 import BudynkiUpdate from "./BudynkiUpdate";
 import ListComponent from "@/components/CrudComponents/ListComponent";
@@ -21,7 +21,13 @@ export default function BudynkiList({
 }) {
   const { t } = useTranslation("translation");
 
-  const columns: GridColDef<IBundynki>[] = [
+  const columns: GridColDef<IBudynki>[] = [
+    {
+      field: "uczelnia_name",
+      headerName: t("budynki.fields.uczelnia"),
+      flex: 1,
+      minWidth: 200,
+    },
     {
       field: "nazwa_budynku",
       headerName: t("budynki.fields.nazwa_budynku"),
@@ -36,15 +42,10 @@ export default function BudynkiList({
       minWidth: 200,
       filterOperators: stringFilterOperators,
     },
-    // Assuming we want to show Uczelnia ID or wait for better solution.
-    // For now, I will omit relation display or just show ID if needed.
-    // Given the prompt "improve components based on Uczelnie", UczelnieList had simple fields.
-    // I will add the relation column as best effort.
-    // If backend returns ID, it shows ID.
   ];
 
   return (
-    <ListComponent<IBundynki>
+    <ListComponent<IBudynki>
       resource="budynki"
       columns={columns}
       UpdateComponent={BudynkiUpdate}

@@ -1,7 +1,7 @@
 import type { InDrawerProps } from "@/components/CrudComponents";
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
 import ForeignKeyField from "@/components/Fields/ForeignInputField";
-import type { IBundynki, IPokoje, IPokojeForm } from "@/types";
+import type { IBudynki, IPokoje, IPokojeForm } from "@/types";
 import { Box, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -33,7 +33,7 @@ export default function PokojeUpdate(props: InDrawerProps) {
             slotProps={{ inputLabel: { shrink: true } }}
           />
 
-          <ForeignKeyField<IPokojeForm, IBundynki>
+          <ForeignKeyField<IPokojeForm, IBudynki>
             control={control}
             name="budynek"
             optionLabel="nazwa_budynku"

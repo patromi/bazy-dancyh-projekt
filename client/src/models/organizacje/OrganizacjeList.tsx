@@ -27,6 +27,11 @@ export default function OrganizacjeList({
 
   const columns: GridColDef<IOrganizacja>[] = [
     {
+      field: "wydzial_name",
+      headerName: t("organizacje.fields.wydzial_name"),
+      flex: 1,
+    },
+    {
       field: "nazwa_organizacji",
       headerName: t("organizacje.fields.nazwa_organizacji"),
       flex: 1,

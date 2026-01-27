@@ -9,7 +9,7 @@ import DataGridCustomPagination from "./DataGridCustomPagination";
 
 export default function DataGridCustomFooter() {
   return (
-    <GridFooterContainer>
+    <GridFooterContainer sx={{ displayPrint: "none" }}>
       <Stack direction="row" spacing={1} sx={{ p: 1 }}>
         <GridToolbarColumnsButton />
         <GridToolbarDensitySelector />
