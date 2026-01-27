@@ -1,14 +1,15 @@
+import type { InDrawerProps } from "@/components/CrudComponents";
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
 import type { IUczelnie, IUczelnieForm } from "@/types";
 import { Box, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-export default function UczelnieUpdate() {
+export default function UczelnieUpdate(props: InDrawerProps) {
   const { t } = useTranslation("translation");
 
   return (
     <UpdateComponent<IUczelnie, IUczelnieForm>
-      resource="uczelnie"
+      {...props}
       renderChildren={({ register, formState: { isLoading } }) => (
         <Box component="form" className="flex flex-col gap-8">
           <TextField

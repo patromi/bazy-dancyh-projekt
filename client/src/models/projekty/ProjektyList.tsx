@@ -12,19 +12,36 @@ import { useTranslation } from "react-i18next";
 import type { CrudFilters } from "@refinedev/core";
 
 import { type SxProps, type Theme } from "@mui/material";
+import LookatButton from "@/components/LookatButton";
 
 export default function ProjektyList({
-  initialFilters,
+  filters: initialFilters,
   sx,
   breadcrumb,
+  inShow,
 }: {
-  initialFilters?: CrudFilters;
+  filters?: CrudFilters;
   sx?: SxProps<Theme>;
   breadcrumb?: React.ReactNode;
+  inShow?: boolean;
 }) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<IProjekty>[] = [
+    {
+      field: "organizacja_name",
+      headerName: t("projekty.fields.organizacja"),
+      flex: 1,
+      minWidth: 200,
+      filterOperators: stringFilterOperators,
+      renderCell: (params) => (
+        <LookatButton
+          resource="organizacje"
+          id={params.row.organizacja}
+          text={params.value}
+        />
+      ),
+    },
     {
       field: "nazwa_projektu",
       headerName: t("projekty.fields.nazwa_projektu"),
@@ -35,7 +52,7 @@ export default function ProjektyList({
     {
       field: "liczba_pkt_do_stypendium",
       headerName: t("projekty.fields.liczba_pkt_do_stypendium"),
-      flex: 1,
+      flex: 0.5,
       minWidth: 100,
       filterOperators: numberFilterOperators,
     },
@@ -51,6 +68,7 @@ export default function ProjektyList({
       filters={initialFilters}
       sx={sx}
       breadcrumb={breadcrumb}
+      dataGridProps={{ columnVisibilityModel: { organizacja_name: !inShow } }}
     />
   );
 }

@@ -9,15 +9,18 @@ import { useTranslation } from "react-i18next";
 import type { CrudFilters } from "@refinedev/core";
 
 import { type SxProps, type Theme } from "@mui/material";
+import LookatButton from "@/components/LookatButton";
 
 export default function BudynkiList({
   initialFilters,
   sx,
   breadcrumb,
+  inShow,
 }: {
   initialFilters?: CrudFilters;
   sx?: SxProps<Theme>;
   breadcrumb?: React.ReactNode;
+  inShow?: boolean;
 }) {
   const { t } = useTranslation("translation");
 
@@ -27,6 +30,13 @@ export default function BudynkiList({
       headerName: t("budynki.fields.uczelnia"),
       flex: 1,
       minWidth: 200,
+      renderCell: (params) => (
+        <LookatButton
+          id={params.row.uczelnia}
+          resource="uczelnie"
+          text={params.row.uczelnia_name}
+        />
+      ),
     },
     {
       field: "nazwa_budynku",
@@ -54,6 +64,7 @@ export default function BudynkiList({
       filters={initialFilters}
       sx={sx}
       breadcrumb={breadcrumb}
+      dataGridProps={{ columnVisibilityModel: { uczelnia_name: !inShow } }}
     />
   );
 }

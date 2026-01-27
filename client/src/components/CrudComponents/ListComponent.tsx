@@ -75,7 +75,13 @@ export default function ListComponent<R extends BaseRecord>(
 
   return (
     <Stack
-      sx={{ height: "100svh", p: 2, ...props.sx }}
+      sx={{
+        minHeight: "400px",
+        height: "100%",
+        maxHeight: "100svh",
+        p: 2,
+        ...props.sx,
+      }}
       gap={2}
       direction="column"
     >

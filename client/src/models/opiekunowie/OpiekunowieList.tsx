@@ -14,9 +14,10 @@ export default function OpiekunowieList() {
     {
       field: "pesel",
       headerName: t("opiekunowie.fields.pesel"),
-      flex: 1,
+      flex: 0.5,
       minWidth: 150,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "imie",
@@ -24,6 +25,15 @@ export default function OpiekunowieList() {
       flex: 1,
       minWidth: 150,
       filterOperators: stringFilterOperators,
+      editable: true,
+    },
+    {
+      field: "drugie_imie",
+      headerName: t("opiekunowie.fields.drugie_imie"),
+      flex: 1,
+      minWidth: 150,
+      filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "nazwisko",
@@ -31,6 +41,7 @@ export default function OpiekunowieList() {
       flex: 1,
       minWidth: 150,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "email",
@@ -38,6 +49,7 @@ export default function OpiekunowieList() {
       flex: 1,
       minWidth: 200,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
   ];
 

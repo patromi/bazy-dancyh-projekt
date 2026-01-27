@@ -192,7 +192,7 @@ class RoleListCreateView(generics.ListCreateAPIView):
     filterset_class = RoleFilter
     ordering_fields = '__all__'
     ordering = ['nazwa_roli']
-    search_fields = ['nazwa_roli', 'sekcja__nazwa_sekcji', 'czlonek__imie', 'czlonek__nazwisko']
+    search_fields = ['nazwa_roli', 'sekcja__nazwa_sekcji', 'czlonek__imie', 'czlonek__nazwisko', 'sekcja__organizacja__nazwa_organizacji']
 
 class RoleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Role.objects.all()

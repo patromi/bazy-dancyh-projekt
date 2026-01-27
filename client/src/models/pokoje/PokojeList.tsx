@@ -12,15 +12,30 @@ import { useTranslation } from "react-i18next";
 import type { CrudFilters } from "@refinedev/core";
 
 import { type SxProps, type Theme } from "@mui/material";
+import LookatButton from "@/components/LookatButton";
 
 export default function PokojeList(props: {
-  initialFilters?: CrudFilters;
+  filters?: CrudFilters;
   sx?: SxProps<Theme>;
   breadcrumb?: React.ReactNode;
+  inShow?: boolean;
 }) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<IPokoje>[] = [
+    {
+      field: "budynek_name",
+      headerName: t("pokoje.fields.budynki_id"),
+      flex: 2,
+      minWidth: 200,
+      renderCell: (params) => (
+        <LookatButton
+          id={params.row.budynek}
+          resource="budynki"
+          text={params.row.budynek_name}
+        />
+      ),
+    },
     {
       field: "nazwa_pokoju",
       headerName: t("pokoje.fields.nazwa_pokoju"),
@@ -45,6 +60,7 @@ export default function PokojeList(props: {
       UpdateComponent={PokojeUpdate}
       CreateComponent={PokojeCreate}
       ShowComponent={PokojeShow}
+      dataGridProps={{ columnVisibilityModel: { budynek_name: !props.inShow } }}
     />
   );
 }

@@ -30,15 +30,8 @@ class WydzialySerializer(serializers.ModelSerializer):
         model = Wydzialy
         fields = '__all__'
 
-class OpiekunowieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Opiekunowie
-        fields = '__all__'
 
-class CzlonkowieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Czlonkowie
-        fields = '__all__'
+
 
 class OrganizacjeSerializer(serializers.ModelSerializer):
     opiekun_name = serializers.StringRelatedField(source='opiekun')
@@ -46,6 +39,25 @@ class OrganizacjeSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Organizacje
+        fields = '__all__'
+
+class OrganizacjeSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organizacje
+        fields = ['id', 'nazwa_organizacji']
+
+class CzlonkowieSerializer(serializers.ModelSerializer):
+    organizacje = OrganizacjeSimpleSerializer(source='organizacje_set', many=True, read_only=True)
+
+    class Meta:
+        model = Czlonkowie
+        fields = '__all__'
+
+class OpiekunowieSerializer(serializers.ModelSerializer):
+    organizacje = OrganizacjeSimpleSerializer(source='organizacje_set', many=True, read_only=True)
+
+    class Meta:
+        model = Opiekunowie
         fields = '__all__'
 
 class ProjektySerializer(serializers.ModelSerializer):
@@ -69,6 +81,7 @@ class SekcjeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sekcje
         fields = '__all__'
+        
 
 class RoleSerializer(serializers.ModelSerializer):
     sekcja_name = serializers.StringRelatedField(source='sekcja')

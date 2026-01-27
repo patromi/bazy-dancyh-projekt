@@ -28,6 +28,7 @@ export default function UpdateComponent<
       resource: props.resource,
       action: "edit",
       id: lastId.current,
+      redirect: false,
     },
   });
 

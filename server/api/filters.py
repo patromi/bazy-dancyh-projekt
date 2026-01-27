@@ -146,4 +146,5 @@ class RoleFilter(filters.FilterSet):
             'sekcja': ['exact'],
             'czlonek': ['exact'],
         }
+        
 

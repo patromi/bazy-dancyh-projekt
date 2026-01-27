@@ -6,17 +6,23 @@ import ListComponent from "@/components/CrudComponents/ListComponent";
 import CzlonkowieCreate from "./CzlonkowieCreate";
 import CzlonkowieShow from "./CzlonkowieShow";
 import { useTranslation } from "react-i18next";
+import { type CrudFilters } from "@refinedev/core";
 
-export default function CzlonkowieList() {
+export default function CzlonkowieList(props: {
+  filters?: CrudFilters;
+  inShow?: boolean;
+  breadcrumb?: boolean;
+}) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<ICzlonkowie>[] = [
     {
       field: "pesel",
       headerName: t("czlonkowie.fields.pesel"),
-      flex: 1,
+      flex: 0.5,
       minWidth: 150,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "imie",
@@ -24,6 +30,15 @@ export default function CzlonkowieList() {
       flex: 1,
       minWidth: 150,
       filterOperators: stringFilterOperators,
+      editable: true,
+    },
+    {
+      field: "drugie_imie",
+      headerName: t("opiekunowie.fields.drugie_imie"),
+      flex: 1,
+      minWidth: 150,
+      filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "nazwisko",
@@ -31,6 +46,7 @@ export default function CzlonkowieList() {
       flex: 1,
       minWidth: 150,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
     {
       field: "email",
@@ -38,16 +54,22 @@ export default function CzlonkowieList() {
       flex: 1,
       minWidth: 200,
       filterOperators: stringFilterOperators,
+      editable: true,
     },
   ];
 
   return (
     <ListComponent<ICzlonkowie>
+      breadcrumb={props.breadcrumb}
+      filters={props.filters}
       resource="czlonkowie"
       columns={columns}
       UpdateComponent={CzlonkowieUpdate}
       CreateComponent={CzlonkowieCreate}
       ShowComponent={CzlonkowieShow}
+      dataGridProps={{
+        columnVisibilityModel: { organizacja_name: !props.inShow },
+      }}
     />
   );
 }

@@ -80,7 +80,7 @@
     "list": "Pokaż listę",
     "create": "Dodaj",
     "edit": "Edytuj",
-    "show": "Pokaż"
+    "show": "Szczegóły"
   },
   "buttons": {
     "create": "Dodaj",
@@ -93,7 +93,7 @@
     "filter": "Filtruj",
     "clear": "Wyczyść",
     "refresh": "Odśwież",
-    "show": "Pokaż",
+    "show": "Szczegóły",
     "undo": "Cofnij",
     "import": "Importuj",
     "clone": "Klonuj",
@@ -102,19 +102,16 @@
   "warnWhenUnsavedChanges": "Czy na pewno chcesz opuścić stronę? Masz niezapisane zmiany.",
   "notifications": {
     "success": "Sukces",
-    "error": "Błąd (kod statusu: {{statusCode}})",
+    "error": "Błąd",
     "undoable": "Masz {{seconds}} sekund na cofnięcie",
     "createSuccess": "Pomyślnie utworzono {{resource}}",
-    "createError": "Wystąpił błąd podczas tworzenia {{resource}} (kod statusu: {{statusCode}})",
+    "createError": "Wystąpił błąd podczas tworzenia {{resource}}",
     "deleteSuccess": "Pomyślnie usunięto {{resource}}",
-    "deleteError": "Błąd podczas usuwania {{resource}} (kod statusu: {{statusCode}})",
+    "deleteError": "Błąd podczas usuwania {{resource}}",
     "editSuccess": "Pomyślnie edytowano {{resource}}",
-    "editError": "Błąd podczas edytowania {{resource}} (kod statusu: {{statusCode}})",
+    "editError": "Błąd podczas edytowania {{resource}}",
     "importProgress": "Importowanie: {{processed}}/{{total}}",
-    "redirectingToList": "Przekierowywanie do listy zasobów",
-    "4xx": {
-      "404": "Nie znaleziono zasobu"
-    }
+    "redirectingToList": "Przekierowywanie do listy zasobów"
   },
   "loading": "Ładowanie...",
   "tags": {
@@ -180,7 +177,8 @@
       "drugie_imie": "Drugie imię",
       "nazwisko": "Nazwisko",
       "email": "Email",
-      "numer_kontaktowy": "Numer kontaktowy"
+      "numer_kontaktowy": "Numer kontaktowy",
+      "organizacje": "Należy do organizacji"
     },
     "titles": {
       "create": "Dodaj członka",
@@ -193,10 +191,13 @@
     "opiekunowie": "Opiekunowie",
     "fields": {
       "id": "Id",
+      "pesel": "PESEL",
       "imie": "Imię",
+      "drugie_imie": "Drugie imię",
       "nazwisko": "Nazwisko",
       "email": "Email",
-      "numer_kontaktowy": "Numer kontaktowy"
+      "numer_kontaktowy": "Numer kontaktowy",
+      "organizacje": "Nadzorowane organizacje"
     },
     "titles": {
       "create": "Dodaj opiekuna",

@@ -11,20 +11,36 @@ import SekcjeShow from "./SekcjeShow";
 import { useTranslation } from "react-i18next";
 import type { CrudFilters } from "@refinedev/core";
 import { type SxProps, type Theme } from "@mui/material";
+import LookatButton from "@/components/LookatButton";
 
 export default function SekcjeList({
   sx,
   breadcrumb,
-  initialFilters,
+  filters,
+  inShow,
 }: {
   sx?: SxProps<Theme>;
   filters?: CrudFilters;
   breadcrumb?: React.ReactNode;
-  initialFilters?: CrudFilters;
+  inShow?: boolean;
 }) {
   const { t } = useTranslation("translation");
 
   const columns: GridColDef<ISekcja>[] = [
+    {
+      field: "organizacja_name",
+      headerName: t("sekcje.fields.organizacja"),
+      flex: 1,
+      minWidth: 200,
+      filterOperators: stringFilterOperators,
+      renderCell: (params) => (
+        <LookatButton
+          resource="organizacje"
+          id={params.row.organizacja}
+          text={params.value}
+        />
+      ),
+    },
     {
       field: "nazwa_sekcji",
       headerName: t("sekcje.fields.nazwa_sekcji"),
@@ -36,7 +52,8 @@ export default function SekcjeList({
       field: "data_zalozenia",
       headerName: t("sekcje.fields.data_zalozenia"),
       flex: 1,
-      minWidth: 150,
+      minWidth: 130,
+      maxWidth: 130,
       filterOperators: dateFilterOperators,
     },
     {
@@ -55,9 +72,10 @@ export default function SekcjeList({
       UpdateComponent={SekcjeUpdate}
       CreateComponent={SekcjeCreate}
       ShowComponent={SekcjeShow}
-      filters={initialFilters}
+      filters={filters}
       sx={sx}
       breadcrumb={breadcrumb}
+      dataGridProps={{ columnVisibilityModel: { organizacja_name: !inShow } }}
     />
   );
 }

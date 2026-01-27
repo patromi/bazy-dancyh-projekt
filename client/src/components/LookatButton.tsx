@@ -13,7 +13,13 @@ export default function LookatButton(props: {
   return (
     <Stack direction="row" alignItems="center" height="100%">
       <IconButton
-        sx={{ borderRadius: props.text ? 1 : "50%", gap: 0.5 }}
+        sx={{
+          borderRadius: props.text ? 1 : "50%",
+          gap: 0.5,
+          textOverflow: "ellipsis",
+          width: "100%",
+          textAlign: "left",
+        }}
         color="inherit"
         size="small"
         onClick={() =>
@@ -26,7 +32,16 @@ export default function LookatButton(props: {
           })
         }
       >
-        {props.text && <Typography fontSize="small">{props.text}</Typography>}
+        {props.text && (
+          <Typography
+            fontSize="small"
+            width="100%"
+            noWrap
+            textOverflow="ellipsis"
+          >
+            {props.text}
+          </Typography>
+        )}
         <VisibilityIcon
           color="info"
           fontSize="small"

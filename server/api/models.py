@@ -129,7 +129,7 @@ class Organizacje(models.Model):
         verbose_name_plural = "Organizacje"
 
     def __str__(self):
-        return self.nazwa_organizacji
+        return f"{self.nazwa_organizacji} ({self.wydzial.uczelnia})"
 
 
 class Projekty(models.Model):
@@ -179,7 +179,7 @@ class Sekcje(models.Model):
         verbose_name_plural = "Sekcje"
 
     def __str__(self):
-        return self.nazwa_sekcji
+        return f"{self.nazwa_sekcji} ({self.organizacja.nazwa_organizacji})"
 
 
 class Role(models.Model):

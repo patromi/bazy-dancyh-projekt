@@ -1,19 +1,10 @@
+import DeleteButton from "@/components/DeleteButton";
 import { Drawer, Stack } from "@mui/material";
-import {
-  useDeleteButton,
-  useGo,
-  useModal,
-  useNotification,
-  useParsed,
-  useShow,
-  type BaseRecord,
-} from "@refinedev/core";
-import { DeleteButton, EditButton, Show } from "@refinedev/mui";
+import { useModal, useParsed, useShow, type BaseRecord } from "@refinedev/core";
+import { EditButton, Show } from "@refinedev/mui";
 
 import type React from "react";
 import type { InDrawerProps } from ".";
-import { t } from "i18next";
-import { useTranslation } from "react-i18next";
 
 type TShowComponentProps<R extends BaseRecord> = {
   resource: string;
@@ -25,27 +16,13 @@ type TShowComponentProps<R extends BaseRecord> = {
 export default function ShowComponent<R extends BaseRecord>(
   props: TShowComponentProps<R>,
 ) {
-  const { t } = useTranslation("translation");
-
   const { show, close, visible } = useModal();
   const { id } = useParsed<{ id: number }>();
 
-  const go = useGo();
-  const { open } = useNotification();
-
   const {
     result,
-    query: { isLoading, error },
+    query: { isLoading },
   } = useShow<R>({ resource: props.resource, id });
-
-  if (error && error.statusCode === 404) {
-    open?.({
-      type: "error",
-      message: t("notifications.4xx.404"),
-      description: t("notifications.redirectingToList"),
-    });
-    go({ to: `/${props.resource}`, type: "replace" });
-  }
 
   return (
     <>
@@ -57,11 +34,11 @@ export default function ShowComponent<R extends BaseRecord>(
         headerButtons={({ editButtonProps, deleteButtonProps }) => (
           <>
             <EditButton {...editButtonProps} onClick={show} />
-            <DeleteButton {...deleteButtonProps} recordItemId={id} />
+            <DeleteButton {...deleteButtonProps} mutationMode="optimistic" />
           </>
         )}
       >
-        <Stack gap={1}>
+        <Stack gap={4}>
           {result ? props.renderChildren(result) : <span>Ładowanie...</span>}
         </Stack>
       </Show>

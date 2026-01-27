@@ -1,7 +1,7 @@
 import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import { type BaseRecord } from "@refinedev/core";
-import { DeleteButton } from "@refinedev/mui";
+import DeleteButton from "@/components/DeleteButton";
 import LookatButton from "../LookatButton";
 
 interface DataGridCustomCellProps {
@@ -30,7 +30,11 @@ export default function DataGridCustomActionCell({
         </IconButton>
       </Tooltip>
       <Tooltip title="Usuń" disableInteractive>
-        <DeleteButton hideText recordItemId={row.id} />
+        <DeleteButton
+          hideText
+          recordItemId={row.id}
+          mutationMode="optimistic"
+        />
       </Tooltip>
     </Stack>
   );

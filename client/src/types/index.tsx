@@ -22,6 +22,10 @@ export interface ICzlonkowie {
   nazwisko: string;
   email: string;
   numer_kontaktowy: string;
+  organizacje: {
+    id: number;
+    nazwa_organizacji: string;
+  }[];
 }
 
 export type ICzlonkowieForm = FormType<ICzlonkowie>;
@@ -34,6 +38,11 @@ export interface IOpiekunowie {
   nazwisko: string;
   email: string;
   numer_kontaktowy: string;
+
+  organizacje: {
+    id: number;
+    nazwa_organizacji: string;
+  }[];
 }
 
 export type IOpiekunowieForm = FormType<IOpiekunowie>;

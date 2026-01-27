@@ -1,4 +1,5 @@
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
+import ForeignInputField from "@/components/Fields/ForeignInputField";
 import type { ISekcja, ISekcjaForm, IOrganizacja } from "@/types";
 import { Autocomplete, Box, TextField } from "@mui/material";
 import { useSelect } from "@refinedev/core";
@@ -27,7 +28,6 @@ export default function SekcjeUpdate() {
             disabled={isLoading}
             slotProps={{ inputLabel: { shrink: true } }}
           />
-
           <TextField
             {...register("data_zalozenia", {
               required: "To pole jest wymagane",
@@ -37,7 +37,6 @@ export default function SekcjeUpdate() {
             disabled={isLoading}
             slotProps={{ inputLabel: { shrink: true } }}
           />
-
           <TextField
             {...register("opis_sekcji")}
             label={t("sekcje.fields.opis_sekcji")}
@@ -46,37 +45,16 @@ export default function SekcjeUpdate() {
             disabled={isLoading}
             slotProps={{ inputLabel: { shrink: true } }}
           />
-
-          <Controller
-            control={control}
+          <ForeignInputField<ISekcjaForm, IOrganizacja>
             name="organizacja"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={organizacjeOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("sekcje.fields.organizacja")}
-                    error={!!field.ref?.current?.error}
-                    disabled={isLoading}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                  />
-                )}
-                value={
-                  organizacjeOptions.find((o) => o.value === field.value) ||
-                  null
-                }
-              />
-            )}
+            label={t("sekcje.fields.organizacja")}
+            resource="organizacje"
+            control={control}
+            optionValue="id"
+            optionLabel={(item) =>
+              `${item.nazwa_organizacji} - ${item.wydzial_name}`
+            }
+            disabled={isLoading}
           />
         </Box>
       )}

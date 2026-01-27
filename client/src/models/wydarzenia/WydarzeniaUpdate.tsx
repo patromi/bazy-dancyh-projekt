@@ -1,33 +1,21 @@
+import type { InDrawerProps } from "@/components/CrudComponents";
 import UpdateComponent from "@/components/CrudComponents/UpdateComponent";
+import ForeignInputField from "@/components/Fields/ForeignInputField";
 import type {
-  IWydarzenia,
-  IWydarzeniaForm,
   IOrganizacja,
   IPokoje,
+  IWydarzenia,
+  IWydarzeniaForm,
 } from "@/types";
-import { Autocomplete, Box, TextField } from "@mui/material";
-import { useSelect } from "@refinedev/core";
-import { Controller } from "react-hook-form";
+import { Box, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-export default function WydarzeniaUpdate() {
+export default function WydarzeniaUpdate(props: InDrawerProps) {
   const { t } = useTranslation("translation");
-
-  const { options: organizacjeOptions } = useSelect<IOrganizacja>({
-    resource: "organizacje",
-    optionLabel: "nazwa_organizacji",
-    optionValue: "id",
-  });
-
-  const { options: pokojeOptions } = useSelect<IPokoje>({
-    resource: "pokoje",
-    optionLabel: "nazwa_pokoju",
-    optionValue: "id",
-  });
 
   return (
     <UpdateComponent<IWydarzenia, IWydarzeniaForm>
-      resource="wydarzenia"
+      {...props}
       renderChildren={({ register, control, formState: { isLoading } }) => (
         <Box component="form" className="flex flex-col gap-8">
           <TextField
@@ -70,67 +58,28 @@ export default function WydarzeniaUpdate() {
             slotProps={{ inputLabel: { shrink: true } }}
           />
 
-          <Controller
-            control={control}
+          <ForeignInputField<IWydarzeniaForm, IOrganizacja>
             name="organizacja"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={organizacjeOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("wydarzenia.fields.organizacja")}
-                    error={!!field.ref?.current?.error}
-                    disabled={isLoading}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                  />
-                )}
-                value={
-                  organizacjeOptions.find((o) => o.value === field.value) ||
-                  null
-                }
-              />
-            )}
+            label={t("wydarzenia.fields.organizacja")}
+            resource="organizacje"
+            control={control}
+            optionValue="id"
+            optionLabel={(option) =>
+              `${option.nazwa_organizacji} - ${option.wydzial_name}`
+            }
+            disabled={isLoading}
           />
 
-          <Controller
-            control={control}
+          <ForeignInputField<IWydarzeniaForm, IPokoje>
             name="pokoj"
-            rules={{ required: "To pole jest wymagane" }}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={pokojeOptions}
-                onChange={(_, value) => {
-                  field.onChange(value?.value);
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  option.value === value?.value || option.value === value
-                }
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("wydarzenia.fields.pokoj")}
-                    error={!!field.ref?.current?.error}
-                    disabled={isLoading}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                  />
-                )}
-                value={
-                  pokojeOptions.find((o) => o.value === field.value) || null
-                }
-              />
-            )}
+            label={t("wydarzenia.fields.pokoj")}
+            resource="pokoje"
+            control={control}
+            optionValue="id"
+            optionLabel={(option) =>
+              `${option.nazwa_pokoju} - ${option.budynek_name}`
+            }
+            disabled={isLoading}
           />
         </Box>
       )}
