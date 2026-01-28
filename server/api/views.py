@@ -14,6 +14,7 @@ from .filters import (
     OpiekunowieFilter, OrganizacjeFilter, ProjektyFilter,
     WydarzeniaFilter, SekcjeFilter, CzlonkowieFilter, RoleFilter
 )
+from .stats_view import StatsView
 
 class UczelnieListCreateView(generics.ListCreateAPIView):
     queryset = Uczelnie.objects.all()

@@ -35,4 +35,5 @@ urlpatterns = [
     path('role', views.RoleListCreateView.as_view(), name='role-list'),
     path('role/<int:pk>', views.RoleDetailView.as_view(), name='role-detail'),
 
+    path('stats', views.StatsView.as_view(), name='stats'),
 ]
