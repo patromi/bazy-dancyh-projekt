@@ -34,8 +34,8 @@ export const dataProvider = (
     } = {};
 
     if (mode === "server") {
-      query._start = (currentPage - 1) * pageSize;
-      query._end = currentPage * pageSize;
+      query.page = currentPage;
+      query.page_size = pageSize;
     }
 
     const generatedSort = generateSort(sorters);
@@ -55,15 +55,19 @@ export const dataProvider = (
       ? `${url}?${stringify(combinedQuery)}`
       : url;
 
-    const { data, headers } = await httpClient[requestMethod](urlWithQuery, {
+    const { data: responseData, headers } = await httpClient[requestMethod](urlWithQuery, {
       headers: headersFromMeta,
     });
 
-    const total = +headers["x-total-count"];
+    // Handle Django pagination response
+    const data = Array.isArray(responseData) ? responseData : responseData.results;
+    const total = Array.isArray(responseData) 
+      ? +headers["x-total-count"] || responseData.length 
+      : responseData.count;
 
     return {
       data,
-      total: total || data.length,
+      total,
     };
   },
 

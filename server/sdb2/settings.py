@@ -88,6 +88,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'api.pagination.CustomPagination',
     'EXCEPTION_HANDLER': 'api.utils.custom_exception_handler',
 }
 WSGI_APPLICATION = 'sdb2.wsgi.application'
