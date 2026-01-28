@@ -73,7 +73,7 @@ class Opiekunowie(models.Model):
         verbose_name_plural = "Opiekunowie"
 
     def __str__(self):
-        return f"{self.imie} {self.nazwisko}"
+        return f"{self.imie} {self.drugie_imie or ''} {self.nazwisko}"
 
 
 class Czlonkowie(models.Model):
@@ -90,7 +90,7 @@ class Czlonkowie(models.Model):
         verbose_name_plural = "Członkowie"
 
     def __str__(self):
-        return f"{self.imie} {self.nazwisko}"
+        return f"{self.imie} {self.drugie_imie or ''} {self.nazwisko}"
 
 
 class CzlonkowieWOrganizacjach(models.Model):

@@ -10,6 +10,7 @@ import { Edit } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { useRef } from "react";
 import type { InDrawerProps, UseFormProps } from ".";
+import { handleErrorNotification } from "@/utils/errorNotification";
 
 type TUpdateComponentProps<R extends BaseRecord, F extends BaseRecord> = {
   renderChildren: (form: UseFormProps<R, F>) => React.ReactNode;
@@ -22,30 +23,28 @@ export default function UpdateComponent<
   const { id: urlId } = useParsed<{ id: BaseKey }>();
   const lastId = useRef<BaseKey>(props.id ?? urlId ?? 0);
 
-  const form = useForm<R, HttpError, F>({
+  const { ...form } = useForm<R, HttpError, F>({
     refineCoreProps: {
       onMutationSuccess: props.onSuccess,
       resource: props.resource,
       action: "edit",
       id: lastId.current,
       redirect: false,
+      errorNotification: (error, value, resource) =>
+        handleErrorNotification(error, value, resource) as any,
     },
+    reValidateMode: "onSubmit",
   });
-
-  const {
-    saveButtonProps,
-    formState: { isDirty, isLoading },
-  } = form;
 
   return (
     <Box sx={{ height: "100svh" }}>
       <Edit
         goBack={props.id ? <CloseButton onClick={props.onClose} /> : undefined}
         saveButtonProps={{
-          ...saveButtonProps,
-          disabled: !isDirty || isLoading,
+          ...form.saveButtonProps,
+          disabled: !form.formState.isDirty || form.formState.isLoading,
         }}
-        isLoading={isLoading}
+        isLoading={form.formState.isLoading}
         resource={props.resource}
       >
         {props.renderChildren(form)}

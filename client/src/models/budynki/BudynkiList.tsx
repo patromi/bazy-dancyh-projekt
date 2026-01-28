@@ -26,19 +26,6 @@ export default function BudynkiList({
 
   const columns: GridColDef<IBudynki>[] = [
     {
-      field: "uczelnia_name",
-      headerName: t("budynki.fields.uczelnia"),
-      flex: 1,
-      minWidth: 200,
-      renderCell: (params) => (
-        <LookatButton
-          id={params.row.uczelnia}
-          resource="uczelnie"
-          text={params.row.uczelnia_name}
-        />
-      ),
-    },
-    {
       field: "nazwa_budynku",
       headerName: t("budynki.fields.nazwa_budynku"),
       flex: 1,
@@ -51,6 +38,20 @@ export default function BudynkiList({
       flex: 1,
       minWidth: 200,
       filterOperators: stringFilterOperators,
+      editable: true,
+    },
+    {
+      field: "uczelnia_name",
+      headerName: t("budynki.fields.uczelnia"),
+      flex: 1,
+      minWidth: 200,
+      renderCell: (params) => (
+        <LookatButton
+          id={params.row.uczelnia}
+          resource="uczelnie"
+          text={params.row.uczelnia_name}
+        />
+      ),
     },
   ];
 

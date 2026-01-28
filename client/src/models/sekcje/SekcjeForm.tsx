@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function SekcjaForm({
   register,
   control,
-  formState: { isLoading },
+  formState: { isLoading, errors },
 }: UseFormProps<ISekcja, ISekcjaForm>) {
   const { t } = useTranslation("translation");
 
@@ -16,10 +16,20 @@ export default function SekcjaForm({
       <TextField
         {...register("nazwa_sekcji", {
           required: "To pole jest wymagane",
+          minLength: {
+            value: 2,
+            message: "Nazwa sekcji musi mieć conajmniej 2 znaki",
+          },
+          maxLength: {
+            value: 100,
+            message: "Nazwa sekcji może mieć maksymalnie 100 znaków",
+          },
         })}
         label={t("sekcje.fields.nazwa_sekcji")}
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.nazwa_sekcji}
+        helperText={errors.nazwa_sekcji?.message}
       />
       <TextField
         {...register("data_zalozenia", {
@@ -29,6 +39,8 @@ export default function SekcjaForm({
         type="date"
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.data_zalozenia}
+        helperText={errors.data_zalozenia?.message}
       />
       <TextField
         {...register("opis_sekcji")}

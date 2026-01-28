@@ -7,24 +7,50 @@ import type {
   IWydarzeniaForm,
 } from "@/types";
 import { Box, TextField } from "@mui/material";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function WydarzeniaForm({
   register,
   control,
-  formState: { isLoading },
+  setValue,
+  watch,
+  formState: { isLoading, errors },
 }: UseFormProps<IWydarzenia, IWydarzeniaForm>) {
   const { t } = useTranslation("translation");
+
+  const formValues = watch();
+
+  const handleDateChange = useCallback(() => {
+    const dataRozpoczecia = new Date(formValues.data_rozpoczecia || "");
+    const dataZakonczenia = new Date(formValues.data_zakonczenia || "");
+    if (dataZakonczenia >= dataRozpoczecia) return;
+    setValue(
+      "data_zakonczenia",
+      // @ts-expect-error TS2322
+      dataRozpoczecia.toISOString().split("T")[0],
+    );
+  }, [formValues.data_rozpoczecia, formValues.data_zakonczenia, setValue]);
 
   return (
     <Box component="form" className="flex flex-col gap-8">
       <TextField
         {...register("nazwa_wydarzenia", {
           required: "To pole jest wymagane",
+          minLength: {
+            value: 2,
+            message: "Nazwa wydarzenia musi mieć conajmniej 2 znaki",
+          },
+          maxLength: {
+            value: 100,
+            message: "Nazwa wydarzenia może mieć maksymalnie 100 znaków",
+          },
         })}
         label={t("wydarzenia.fields.nazwa_wydarzenia")}
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.nazwa_wydarzenia}
+        helperText={errors.nazwa_wydarzenia?.message}
       />
 
       <TextField
@@ -35,6 +61,9 @@ export default function WydarzeniaForm({
         type="date"
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.data_rozpoczecia}
+        helperText={errors.data_rozpoczecia?.message}
+        onBlur={handleDateChange}
       />
 
       <TextField
@@ -45,12 +74,13 @@ export default function WydarzeniaForm({
         type="date"
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.data_zakonczenia}
+        helperText={errors.data_zakonczenia?.message}
+        onBlur={handleDateChange}
       />
 
       <TextField
-        {...register("opis_wydarzenia", {
-          required: "To pole jest wymagane",
-        })}
+        {...register("opis_wydarzenia", {})}
         label={t("wydarzenia.fields.opis_wydarzenia")}
         multiline
         rows={4}

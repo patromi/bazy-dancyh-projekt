@@ -111,7 +111,8 @@
     "editSuccess": "Pomyślnie edytowano {{resource}}",
     "editError": "Błąd podczas edytowania {{resource}}",
     "importProgress": "Importowanie: {{processed}}/{{total}}",
-    "redirectingToList": "Przekierowywanie do listy zasobów"
+    "redirectingToList": "Przekierowywanie do listy zasobów",
+    "validationError": "Pola zasobu {{resource}} nie są unikalne w bazie danych"
   },
   "loading": "Ładowanie...",
   "tags": {

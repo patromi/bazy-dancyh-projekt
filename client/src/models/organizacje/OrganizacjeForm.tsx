@@ -13,7 +13,7 @@ import { Controller } from "react-hook-form";
 export default function OrganizacjeForm({
   register,
   control,
-  formState: { isLoading },
+  formState: { isLoading, errors },
 }: UseFormProps<IOrganizacja, IOrganizacjaForm>) {
   const { t } = useTranslation("translation");
 
@@ -22,10 +22,20 @@ export default function OrganizacjeForm({
       <TextField
         {...register("nazwa_organizacji", {
           required: "To pole jest wymagane",
+          minLength: {
+            value: 2,
+            message: "Nazwa organizacji musi mieć conajmniej 2 znaki",
+          },
+          maxLength: {
+            value: 100,
+            message: "Nazwa organizacji może mieć maksymalnie 100 znaków",
+          },
         })}
         label={t("organizacje.fields.nazwa_organizacji")}
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.nazwa_organizacji}
+        helperText={errors.nazwa_organizacji?.message}
       />
 
       <TextField
@@ -36,6 +46,8 @@ export default function OrganizacjeForm({
         type="date"
         disabled={isLoading}
         slotProps={{ inputLabel: { shrink: true } }}
+        error={!!errors.data_zalozenia}
+        helperText={errors.data_zalozenia?.message}
       />
 
       <ForeignKeyField<IOrganizacjaForm, IWydzialy>
