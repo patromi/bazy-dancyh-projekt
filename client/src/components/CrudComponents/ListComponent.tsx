@@ -42,6 +42,7 @@ export default function ListComponent<R extends BaseRecord>(
       ...props.columns.map((column) => ({
         ...column,
         editable: column.editable && editInline,
+        hideable: true,
       })),
       {
         field: "actions",
@@ -108,7 +109,7 @@ export default function ListComponent<R extends BaseRecord>(
       >
         <DataGrid
           {...dataGridProps}
-          {...props.dataGridProps}
+          // {...props.dataGridProps}
           sx={{ height: "100%" }}
           localeText={plPL.components.MuiDataGrid.defaultProps.localeText}
           columns={columns}
